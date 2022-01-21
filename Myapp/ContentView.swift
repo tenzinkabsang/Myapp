@@ -1,4 +1,3 @@
-import SDWebImageSwiftUI
 import SwiftUI
 
 struct ContentView: View {
@@ -30,16 +29,3 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-
-/**
-var body: some View {
-    WebImage(url:URL(string: imageURL))
-         .resizable()
-         .placeholder {
-           Rectangle().foregroundColor(.gray)
-         }
-       .indicator(.activity)
-       .scaledToFit()
-       .frame(width: 155.0, height:250.0)
-}
- **/
