@@ -18,13 +18,16 @@ struct MyappApp: App {
     
     init() {
         FirebaseApp.configure()
+        
+        //addDummyData()
     }
     
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(currentUser)
+            //ContentView()
+            HomeView()
+            .environmentObject(currentUser)
         }
         
     }

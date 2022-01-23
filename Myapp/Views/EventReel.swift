@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CardRow: View {
+struct EventReel: View {
     
     var events: [Event]
     
@@ -10,7 +10,7 @@ struct CardRow: View {
             
             HStack(alignment: .top, spacing: 0) {
                 ForEach(events){ event in
-                    CardItem(event: event)
+                    EventReelItem(event: event)
                 }
             }
         }
@@ -18,9 +18,9 @@ struct CardRow: View {
     }
 }
 
-struct CardRow_Previews: PreviewProvider {
+struct EventReel_Previews: PreviewProvider {
     static var previews: some View {
-        CardRow(events: EventList.allEvents)
+        EventReel(events: EventList.allEvents)
         
     }
 }

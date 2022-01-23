@@ -1,31 +1,31 @@
 import SwiftUI
 
-struct CardItem: View {
+struct EventReelItem: View {
     
     var event: Event
+    
+    private let width: Double = 155
+    private let height: Double = 250
     
     var body: some View {
         ZStack{
             
-            AsyncImage(url: URL(string: event.eventImageUrl + "q?w=155&h=250"))
-                .frame(width: 155, height: 250)
-                .cornerRadius(5)
-            //.clipShape(RoundedRectangle(cornerRadius: 5))
+            LiveEventView(eventUrl: event.eventImageUrl, width: width, height: height)
             
             // TODO: Add distance info here
             
             
-            VStack{
+            VStack(alignment: .leading){
                 Spacer()
                 Text("#" + event.category.uppercased() + " " + event.title)
                     .font(.subheadline)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
-                    .lineLimit(2)
                     .padding(.all, 9)
+                    .lineLimit(2)
             }
         }
-        .frame(width: 155, height: 250)
+        .frame(width: width, height: height)
         .padding(.leading, 15)
         
         
@@ -33,8 +33,8 @@ struct CardItem: View {
     
 }
 
-struct CardItem_Previews: PreviewProvider {
+struct EventReelItem_Previews: PreviewProvider {
     static var previews: some View {
-        CardItem(event: EventList.allEvents[0])
+        EventReelItem(event: EventList.allEvents[0])
     }
 }

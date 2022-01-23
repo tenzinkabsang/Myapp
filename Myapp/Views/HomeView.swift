@@ -1,15 +1,34 @@
-//
-//  HomeView.swift
-//  Myapp
-//
-//  Created by Tenzin Kabsang on 1/21/22.
-//
-
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var viewModel = EventsViewModel()
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            
+            List {
+                EventReel(events: viewModel.events)
+                    .listRowInsets(EdgeInsets())
+                
+                ForEach(viewModel.events) { event in
+                    EventCard(event: event)
+                    
+                }
+                .listRowInsets(EdgeInsets())
+                //.listRowSeparator(.hidden)
+            }
+            .refreshable {
+                self.viewModel.fetchDataManual()
+            }
+            .listStyle(.inset)
+            .navigationTitle("New")
+        }
+    }
+    
+    init() {
+        self.viewModel.fetchDataManual()
+        
     }
 }
 
