@@ -17,7 +17,7 @@ class EventsViewModel: ObservableObject {
         }
     }
     
-    func fetchDataManualX() {
+    func fetchDataManual() {
         db.collection("events").whereField("isExpired", isEqualTo: false).getDocuments { snapshot, error in
             if let error = error {
                 print("Error getting events: \(error.localizedDescription)")
@@ -27,7 +27,7 @@ class EventsViewModel: ObservableObject {
             if let querySnapshot = snapshot {
                // DispatchQueue.main.async {
                     self.events = querySnapshot.documents.compactMap{ d in
-                        Event(id: d.documentID,
+                        var event = Event(id: d.documentID,
                               author: UserInfo(userId: d["author.userId"] as? String ?? "",
                                                username: d["author.username"] as? String ?? "",
                                                profileImageUrl: d["author.profileImageUrl"] as? String ?? ""),
@@ -38,6 +38,27 @@ class EventsViewModel: ObservableObject {
                               location: Location(latitude: d["location.latitude"] as? String ?? "", longitude: d["location.longitude"] as? String ?? ""),
                               startTime: d["startTime"] as? Date ?? Date(),
                               eventUpdates: [EventUpdate]())
+                        
+                        // Get eventUpdates for each event item
+                        let path = "events/\(event.id)/eventUpdates"
+                        print(path)
+                        self.db.collection(path).addSnapshotListener { querySnapshot, error in
+                            if let querySnapshot = querySnapshot {
+                                let eventUpdates = querySnapshot.documents.compactMap { d in
+                                    EventUpdate(id: d.documentID,
+                                                guest: UserInfo(userId: d["author.userId"] as? String ?? "",
+                                                                username: d["author.username"] as? String ?? "",
+                                                                profileImageUrl: d["author.profileImageUrl"] as? String ?? ""),
+                                                comments: d["comments"] as? [String] ?? [],
+                                                images: d["images"] as? [String] ?? [])
+                                }
+                                
+                                
+                                event.eventUpdates.append(contentsOf: eventUpdates)
+                            }
+                        }
+                        
+                        return event
                     }
                // }
             }
@@ -45,7 +66,11 @@ class EventsViewModel: ObservableObject {
         }
     }
     
-    func fetchDataManual() {
+    func populateEventUpdates() {
+        
+    }
+    
+    func fetchDataManualx() {
         db.collection("events").whereField("isExpired", isEqualTo: false).addSnapshotListener { querySnapshot, error in
             if let error = error {
                 print("Error getting events: \(error.localizedDescription)")

@@ -6,12 +6,35 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CardProfileImage: View {
     var imageUrl: String
     
+    private let imageSize: Double = 40
+    
     var body: some View {
         
+        WebImage(url: URL(string: imageUrl))
+            .resizable()
+            .placeholder {
+                Circle()
+                    .foregroundColor(Color.purple.opacity(0.1))
+                    .frame(width: imageSize, height: imageSize)
+            }
+            .onFailure { error in
+                //Image(systemName: "person.circle")
+            }
+            .transition(.fade(duration: 0.5))
+            .frame(width: imageSize, height: imageSize)
+            .clipShape(Circle())
+            .overlay{
+                Circle().stroke(.white, lineWidth: 2)
+            }
+            .shadow(radius: 7)
+        
+        
+        /**
         AsyncImage(url: URL(string: imageUrl), transaction: Transaction(animation: .spring())) { phase in
             switch phase {
             case .empty:
@@ -24,7 +47,7 @@ struct CardProfileImage: View {
                 
             case .failure(_):
                 Image(systemName: "person.circle")
-                
+                                
             @unknown default:
                 Image(systemName: "person.circle")
             }
@@ -35,7 +58,7 @@ struct CardProfileImage: View {
             Circle().stroke(.white, lineWidth: 2)
         }
         .shadow(radius: 7)
-              
+           **/
     }
 }
 

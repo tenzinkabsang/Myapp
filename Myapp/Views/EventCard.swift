@@ -31,8 +31,12 @@ struct EventCard: View {
                         Text("1.4 Miles")
                         
                         Spacer()
+                        if !event.eventUpdates.isEmpty {
+                            Text(event.eventUpdates[0].guest.username)
+                        } else {
+                            Text("event update is empty")
+                        }
                         
-                        Text("65 there 23 on the way")
                         Spacer()
                     }
                     

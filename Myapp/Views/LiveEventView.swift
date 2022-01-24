@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct LiveEventView: View {
     var eventUrl: String
@@ -22,14 +23,46 @@ struct LiveEventView: View {
             
             let locationUrl = "\(eventUrl)\(Int(imageWidth))x\(Int(height))"
             
-            AsyncImage(url: URL(string: locationUrl)) { img in
-                img.resizable()
-                    .scaledToFill()
-            } placeholder: {
-                Color.purple.opacity(0.1)
-            }
-            .frame(width: imageWidth, height: height)
-            .cornerRadius(cornerRadius ?? 5)
+            WebImage(url: URL(string: locationUrl))
+                .resizable()
+                .placeholder {
+                    Rectangle()
+                        .foregroundColor(Color.purple.opacity(0.1))
+                        .frame(width: imageWidth, height: height)
+                }
+                .indicator(.activity)
+                .transition(.fade(duration: 0.5))
+                .frame(width: imageWidth, height: height)
+                .cornerRadius(cornerRadius ?? 5)
+            
+            /**
+             AsyncImage(url: URL(string: locationUrl)) { img in
+             img.resizable()
+             .scaledToFill()
+             } placeholder: {
+             Color.purple.opacity(0.1)
+             }
+             .frame(width: imageWidth, height: height)
+             .cornerRadius(cornerRadius ?? 5)
+             **/
+            
+            //            AsyncImage(url: URL(string: locationUrl)){ phase in
+            //                if let image = phase.image {
+            //                    image
+            //                        .resizable()
+            //                        .scaledToFill()
+            //                } else if phase.error != nil {
+            //                    Text(phase.error?.localizedDescription ?? "error")
+            //                        .foregroundColor(Color.pink)
+            //                        .frame(width: imageWidth, height: height)
+            //                } else {
+            //                    Color.purple.opacity(0.1)
+            //                }
+            //            }
+            //            .frame(width: imageWidth, height: height)
+            //            .cornerRadius(cornerRadius ?? 5)
+            
+            
         }
     }
 }

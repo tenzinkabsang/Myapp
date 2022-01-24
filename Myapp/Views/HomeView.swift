@@ -12,8 +12,12 @@ struct HomeView: View {
                 CategoryBadgeReel(events: viewModel.events).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
                 
                 EventReel(events: viewModel.events).listRowInsets(EdgeInsets())
-                
-                ForEach(viewModel.events) { event in EventCard(event: event) }.listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+            
+                ForEach(viewModel.events) {
+                    event in EventCard(event: event)
+                }
+                .listRowInsets(EdgeInsets())
+                .listRowSeparator(.hidden)
                
             }
             .refreshable {

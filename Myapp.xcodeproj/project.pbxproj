@@ -27,6 +27,7 @@
 		968E692F279CBC3100A0C8A9 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E692E279CBC3100A0C8A9 /* EventCard.swift */; };
 		968E6932279CBD6600A0C8A9 /* CardProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E6931279CBD6600A0C8A9 /* CardProfileImage.swift */; };
 		968E6934279CDD1900A0C8A9 /* EventCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E6933279CDD1900A0C8A9 /* EventCardList.swift */; };
+		96B54D7A279F20E500D57F86 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 96B54D79279F20E500D57F86 /* SDWebImageSwiftUI */; };
 		96E7A8A727988E4100C0E27E /* MyappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E7A8A627988E4100C0E27E /* MyappApp.swift */; };
 		96E7A8A927988E4100C0E27E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E7A8A827988E4100C0E27E /* ContentView.swift */; };
 		96E7A8AB27988E4500C0E27E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E7A8AA27988E4500C0E27E /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96B54D7A279F20E500D57F86 /* SDWebImageSwiftUI in Frameworks */,
 				968E6927279C4C9100A0C8A9 /* FirebaseFirestore in Frameworks */,
 				968E6929279C4C9100A0C8A9 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 			);
@@ -216,6 +218,7 @@
 			packageProductDependencies = (
 				968E6926279C4C9100A0C8A9 /* FirebaseFirestore */,
 				968E6928279C4C9100A0C8A9 /* FirebaseFirestoreSwift-Beta */,
+				96B54D79279F20E500D57F86 /* SDWebImageSwiftUI */,
 			);
 			productName = Myapp;
 			productReference = 96E7A8A327988E4100C0E27E /* Myapp.app */;
@@ -247,6 +250,7 @@
 			mainGroup = 96E7A89A27988E4100C0E27E;
 			packageReferences = (
 				968E6925279C4C9100A0C8A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				96B54D78279F20E500D57F86 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 96E7A8A427988E4100C0E27E /* Products */;
 			projectDirPath = "";
@@ -430,6 +434,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -459,6 +464,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -506,6 +512,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		96B54D78279F20E500D57F86 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -518,6 +532,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 968E6925279C4C9100A0C8A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		96B54D79279F20E500D57F86 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96B54D78279F20E500D57F86 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
