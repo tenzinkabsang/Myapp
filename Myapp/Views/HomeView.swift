@@ -8,15 +8,13 @@ struct HomeView: View {
         NavigationView{
             
             List {
-                EventReel(events: viewModel.events)
-                    .listRowInsets(EdgeInsets())
                 
-                ForEach(viewModel.events) { event in
-                    EventCard(event: event)
-                    
-                }
-                .listRowInsets(EdgeInsets())
-                //.listRowSeparator(.hidden)
+                CategoryBadgeReel(events: viewModel.events).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+                
+                EventReel(events: viewModel.events).listRowInsets(EdgeInsets())
+                
+                ForEach(viewModel.events) { event in EventCard(event: event) }.listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+               
             }
             .refreshable {
                 self.viewModel.fetchDataManual()
@@ -28,7 +26,6 @@ struct HomeView: View {
     
     init() {
         self.viewModel.fetchDataManual()
-        
     }
 }
 

@@ -9,7 +9,6 @@ struct EventCard: View {
         
         ZStack {
             LiveEventView(eventUrl: event.eventImageUrl, cornerRadius: 0,  height: cardHeight)
-            
             VStack(alignment: .leading) {
                 Spacer()
                 

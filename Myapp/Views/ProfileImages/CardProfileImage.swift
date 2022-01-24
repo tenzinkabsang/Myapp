@@ -11,10 +11,23 @@ struct CardProfileImage: View {
     var imageUrl: String
     
     var body: some View {
-        AsyncImage(url: URL(string: imageUrl)) { img in
-            img.resizable()
-        } placeholder: {
-            Color.gray
+        
+        AsyncImage(url: URL(string: imageUrl), transaction: Transaction(animation: .spring())) { phase in
+            switch phase {
+            case .empty:
+                Color.purple.opacity(0.1)
+                
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+                
+            case .failure(_):
+                Image(systemName: "person.circle")
+                
+            @unknown default:
+                Image(systemName: "person.circle")
+            }
         }
         .frame(width: 40, height: 40)
         .clipShape(Circle())
@@ -22,8 +35,7 @@ struct CardProfileImage: View {
             Circle().stroke(.white, lineWidth: 2)
         }
         .shadow(radius: 7)
-        
-        
+              
     }
 }
 

@@ -24,12 +24,12 @@ struct LiveEventView: View {
             
             AsyncImage(url: URL(string: locationUrl)) { img in
                 img.resizable()
+                    .scaledToFill()
             } placeholder: {
-                Color.gray
+                Color.purple.opacity(0.1)
             }
             .frame(width: imageWidth, height: height)
             .cornerRadius(cornerRadius ?? 5)
-            //.clipShape(RoundedRectangle(cornerRadius: 5))
         }
     }
 }
