@@ -2,8 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var viewModel = EventsViewModel()
-    
-    
+        
     var body: some View {
         NavigationView{
             
@@ -29,7 +28,8 @@ struct HomeView: View {
     }
     
     init() {
-        self.viewModel.fetchDataManual()
+        //self.viewModel.fetchDataManual()
+        self.viewModel.fetchEvents()
     }
 }
 

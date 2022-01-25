@@ -29,7 +29,7 @@ final class ViewModel: ObservableObject {
                                          isExpired: d["isExpired"] as? Bool ?? true,
                                          title: d["title"] as? String ?? "",
                                          location: Location(latitude: d["location.latitude"] as? String ?? "", longitude: d["location.longitude"] as? String ?? ""),
-                                         startTime: d["startTime"] as? Date ?? Date(),
+                                         createdAt: d["createdAt"] as? Date ?? Date(),
                                          eventUpdates: [EventUpdate]())
                             
                         }

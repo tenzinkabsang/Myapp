@@ -12,7 +12,7 @@ struct EventList {
               isExpired: false,
               title: "This place is amazing you have to check it out!",
               location: Location(latitude: "36.114647", longitude: "-115.172813"),
-              startTime: Date(),
+              createdAt: Date(),
               eventUpdates: [
                 EventUpdate(id: "111",
                             guest: UserInfo(userId: "user2",
@@ -30,7 +30,7 @@ struct EventList {
               isExpired: false,
               title: "Can't believe how busy the mall is. Shopping all day",
               location: Location(latitude: "36.114647", longitude: "-115.172813"),
-              startTime: Date(),
+              createdAt: Date(),
               eventUpdates: [
                 EventUpdate(id: "222",
                             guest: UserInfo(userId: "user1",
@@ -48,7 +48,7 @@ struct EventList {
               isExpired: false,
               title: "This place is amazing you have to check it out!",
               location: Location(latitude: "36.114647", longitude: "-115.172813"),
-              startTime: Date(),
+              createdAt: Date(),
               eventUpdates: [
                 EventUpdate(id: "333",
                             guest: UserInfo(userId: "user2",
@@ -66,7 +66,7 @@ struct EventList {
               isExpired: false,
               title: "This place is amazing you have to check it out!",
               location: Location(latitude: "36.114647", longitude: "-115.172813"),
-              startTime: Date(),
+              createdAt: Date(),
               eventUpdates: [
                 EventUpdate(id: "333",
                             guest: UserInfo(userId: "user2",
@@ -84,7 +84,7 @@ struct EventList {
               isExpired: false,
               title: "This place is amazing you have to check it out!",
               location: Location(latitude: "36.114647", longitude: "-115.172813"),
-              startTime: Date(),
+              createdAt: Date(),
               eventUpdates: [
                 EventUpdate(id: "333",
                             guest: UserInfo(userId: "user2",
