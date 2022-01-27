@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EventReelItem: View {
     
-    var event: Event
+    @ObservedObject var model: EventViewModel
     
     private let width: Double = 155
     private let height: Double = 250
@@ -10,14 +10,14 @@ struct EventReelItem: View {
     var body: some View {
         ZStack{
             
-            LiveEventView(eventUrl: event.eventImageUrl, width: width, height: height)
+            LiveEventView(eventUrl: model.event.eventImageUrl, width: width, height: height)
             
             // TODO: Add distance info here
             
             
             VStack(alignment: .leading){
                 Spacer()
-                Text("#" + event.category.uppercased() + " " + event.title)
+                Text(model.getEventTitle())
                     .font(.subheadline)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
@@ -35,6 +35,6 @@ struct EventReelItem: View {
 
 struct EventReelItem_Previews: PreviewProvider {
     static var previews: some View {
-        EventReelItem(event: EventList.allEvents[0])
+        EventReelItem(model: EventList.eventModels[0])
     }
 }

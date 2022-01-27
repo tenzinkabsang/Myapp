@@ -2,6 +2,12 @@ import Foundation
 
 struct EventList {
     
+    static let fullEventModel = [
+        FullEventViewModel(event: EventList.allEvents[0])
+    ]
+    
+    static let eventModels = allEvents.map { e in EventViewModel(event: e) }
+    
     static let allEvents = [
         Event(id: "event-1",
               author: UserInfo(userId: "user1",

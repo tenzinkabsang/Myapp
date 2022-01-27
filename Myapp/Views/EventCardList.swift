@@ -2,12 +2,12 @@ import SwiftUI
 
 struct EventCardList: View {
     
-    var events: [Event]
+    var events: [FullEventViewModel]
     
     var body: some View {
         
         List(events) { event in
-            EventCard(event: event)
+            EventCard(model: event)
                 .listRowInsets(EdgeInsets())
         }
         .listRowSeparator(.hidden)
@@ -17,6 +17,6 @@ struct EventCardList: View {
 
 struct EventCardList_Previews: PreviewProvider {
     static var previews: some View {
-        EventCardList(events: EventList.allEvents)
+        EventCardList(events: EventList.fullEventModel)
     }
 }

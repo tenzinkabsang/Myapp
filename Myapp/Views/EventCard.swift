@@ -2,22 +2,22 @@
 import SwiftUI
 
 struct EventCard: View {
-    var event: Event
+    @ObservedObject var model: FullEventViewModel
     
     var body: some View {
         let cardHeight: Double = 400
         
         ZStack {
-            LiveEventView(eventUrl: event.eventImageUrl, cornerRadius: 0,  height: cardHeight)
+            LiveEventView(eventUrl: model.event.eventImageUrl, cornerRadius: 0,  height: cardHeight)
             VStack(alignment: .leading) {
                 Spacer()
                 
                 Group {
                     HStack {
                         
-                        CardProfileImage(imageUrl: event.author.profileImageUrl)
+                        CardProfileImage(imageUrl: model.event.author.profileImageUrl)
                         
-                        Text("#" + event.category.uppercased() + " " + event.title)
+                        Text(model.getEventTitle())
                             .font(.subheadline)
                             .foregroundColor(.white)
                             .fontWeight(.bold)
@@ -29,6 +29,10 @@ struct EventCard: View {
                     // TODO: Figure this out, possibly use firestore subscriptions to dynamically calculate
                     HStack {
                         Text("1.4 Miles")
+                        
+                        let test = model.event.eventUpdates?.first?.guest.username ?? "no name"
+                        
+                        Text(model.guestName)
                         
                         Spacer()
 //                        if !event.eventUpdates?.isEmpty! {
@@ -53,6 +57,6 @@ struct EventCard: View {
 
 struct EventCard_Previews: PreviewProvider {
     static var previews: some View {
-        EventCard(event: EventList.allEvents[0])
+        EventCard(model: EventList.fullEventModel[0])
     }
 }

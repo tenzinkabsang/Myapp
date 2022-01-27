@@ -4,16 +4,240 @@ import FirebaseFirestoreSwift
 import Combine
 
 
-class EventRepository: ObservableObject {
+
+class BaseEventRepository {
+    @Published var liveTilesEvents = [Event]()
+    @Published var events = [Event]()
+}
+
+protocol IEventRepository: BaseEventRepository {
+    func addEvent(_ event: Event)
+    func addEventUpdate(eventId: String, eventUpdate: EventUpdate)
+    func updateEventUpdate(eventId: String, eventUpdate: EventUpdate)
+    func loadData()
+}
+
+
+class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
     private let path: String = "events"
+    private let db = Firestore.firestore()
     
-    private let store = Firestore.firestore()
+    private var cancellables = Set<AnyCancellable>()
     
-    func add(_ event: Event) {
+    @Published private var tempEvents = [Event]()
+    
+    override init() {
+        super.init()
+        loadData()
+    }
+    
+    
+    func loadData() {
+        self.events = [Event]()
+        self.tempEvents = [Event]()
+        fetchLiveTilesData()
+        fetchEvents()
+        
+        $tempEvents
+            .sink { events in
+                events.forEach { event in
+                    self.fetchEventAndUpdates(event)
+                }
+            }
+            .store(in: &cancellables)
+            
+    }
+    
+    func fetchEventAndUpdates(_ event: Event) {
+               
+        var eventUpdates = [EventUpdate]()
+        self.db.collection(path).document(event.id!).collection("eventUpdates").order(by: "createdAt", descending: true).addSnapshotListener { sub, error in
+            if let error = error {
+                print("Error getting events: \(error.localizedDescription)")
+                return
+            }
+            
+            if let sub = sub {
+                eventUpdates = sub.documents.compactMap { d -> EventUpdate? in
+                    //return try? d.data(as: EventUpdate.self)
+                    
+                    return EventUpdate(id: d.documentID,
+                                       guest: UserInfo(userId: d["guest.userId"] as? String ?? "",
+                                                       username: d["guest.username"] as? String ?? "",
+                                                       profileImageUrl: d["guest.profileImageUrl"] as? String ?? ""),
+                                       comments: d["comments"] as? [String] ?? [],
+                                       images: d["images"] as? [String] ?? [],
+                                       createdAt: d["createdAt"] as? Date ?? Date())
+                }
+                
+                
+                let e = Event(id: event.id,
+                              author: event.author,
+                              category: event.category,
+                              eventImageUrl: event.eventImageUrl,
+                              isExpired: event.isExpired,
+                              title: event.title,
+                              location: event.location,
+                              createdAt: event.createdAt,
+                              eventUpdates: eventUpdates)
+                
+                if let index = self.events.firstIndex(of: e) {
+                    self.events.remove(at: index)
+                    self.events.insert(e, at: index)
+                } else {
+                    self.events.append(e)
+                }
+            }
+        }
+    }
+    
+    
+    func fetchEvents() {
+        // 1. Get events
+        db.collection(path).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting events: \(error.localizedDescription)")
+                return
+            }
+            
+            if let querySnapshot = snapshot {
+                self.tempEvents = querySnapshot.documents.compactMap { eventQuerySnapshot in
+                    return Event(id: eventQuerySnapshot.documentID,
+                                 author: UserInfo(userId: eventQuerySnapshot["author.userId"] as? String ?? "",
+                                                  username: eventQuerySnapshot["author.username"] as? String ?? "",
+                                                  profileImageUrl: eventQuerySnapshot["author.profileImageUrl"] as? String ?? ""),
+                                 category: eventQuerySnapshot["category"] as? String ?? "",
+                                 eventImageUrl: eventQuerySnapshot["eventImageUrl"] as? String ?? "",
+                                 isExpired: eventQuerySnapshot["isExpired"] as? Bool ?? true,
+                                 title: eventQuerySnapshot["title"] as? String ?? "",
+                                 location: Location(latitude: eventQuerySnapshot["location.latitude"] as? String ?? "", longitude: eventQuerySnapshot["location.longitude"] as? String ?? ""),
+                                 createdAt: eventQuerySnapshot["createdAt"] as? Date ?? Date(),
+                                 eventUpdates: [EventUpdate]())
+                }
+            }
+        }
+    }
+    
+    private func fetchLiveTilesData() {
+        db.collection(path).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting events: \(error.localizedDescription)")
+                return
+            }
+            
+            if let querySnapshot = querySnapshot {
+                self.liveTilesEvents = querySnapshot.documents.compactMap { eventQuerySnapshot -> Event? in
+                    //return try? querySnapshot.data(as: Event.self)
+                    
+                   let tempEvent = Event(id: eventQuerySnapshot.documentID,
+                          author: UserInfo(userId: eventQuerySnapshot["author.userId"] as? String ?? "",
+                                           username: eventQuerySnapshot["author.username"] as? String ?? "",
+                                           profileImageUrl: eventQuerySnapshot["author.profileImageUrl"] as? String ?? ""),
+                          category: eventQuerySnapshot["category"] as? String ?? "",
+                          eventImageUrl: eventQuerySnapshot["eventImageUrl"] as? String ?? "",
+                          isExpired: eventQuerySnapshot["isExpired"] as? Bool ?? true,
+                          title: eventQuerySnapshot["title"] as? String ?? "",
+                          location: Location(latitude: eventQuerySnapshot["location.latitude"] as? String ?? "", longitude: eventQuerySnapshot["location.longitude"] as? String ?? ""),
+                          createdAt: eventQuerySnapshot["createdAt"] as? Date ?? Date(),
+                          eventUpdates: [EventUpdate]())
+                    
+                    return tempEvent
+                }
+            }
+        }
+    }
+    
+    private func fetchEventsx() {
+        db.collection(path).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting events: \(error.localizedDescription)")
+                return
+            }
+            
+            if let querySnapshot = snapshot {
+                self.events = querySnapshot.documents.compactMap{ eventQuerySnapshot in
+                    
+                    // Get subcollection data
+//                    let subcollectionPath = "\(self.path)/\(eventQuerySnapshot.documentID)/eventUpdates"
+//                    print(subcollectionPath)
+//
+//                    var eventUpdates = [EventUpdate]()
+//                    self.db.collection(subcollectionPath).order(by: "createdAt", descending: true).addSnapshotListener { sub, error in
+//                            if let error = error {
+//                                print("Error getting events: \(error.localizedDescription)")
+//                                return
+//                            }
+//
+//                            if let sub = sub {
+//                                eventUpdates = sub.documents.compactMap { d -> EventUpdate? in
+//                                    //return try? d.data(as: EventUpdate.self)
+//
+//                                    return EventUpdate(id: d.documentID,
+//                                                       guest: UserInfo(userId: d["author.userId"] as? String ?? "",
+//                                                                       username: d["author.username"] as? String ?? "",
+//                                                                       profileImageUrl: d["author.profileImageUrl"] as? String ?? ""),
+//                                                       comments: d["comments"] as? [String] ?? [],
+//                                                       images: d["images"] as? [String] ?? [],
+//                                                       createdAt: d["createdAt"] as? Date ?? Date())
+//                                }
+//                            }
+//                        }
+//
+//                    let tempEvent = try? eventQuerySnapshot.data(as: Event.self)
+//
+//                    return Event(id: tempEvent!.id,
+//                                 author: tempEvent!.author,
+//                                 category: tempEvent!.category,
+//                                 eventImageUrl: tempEvent!.eventImageUrl,
+//                                 isExpired: tempEvent!.isExpired,
+//                                 title: tempEvent!.title,
+//                                 location: tempEvent!.location,
+//                                 createdAt: tempEvent!.createdAt,
+//                                 eventUpdates: eventUpdates)
+                    
+                   let tempEvent = Event(id: eventQuerySnapshot.documentID,
+                          author: UserInfo(userId: eventQuerySnapshot["author.userId"] as? String ?? "",
+                                           username: eventQuerySnapshot["author.username"] as? String ?? "",
+                                           profileImageUrl: eventQuerySnapshot["author.profileImageUrl"] as? String ?? ""),
+                          category: eventQuerySnapshot["category"] as? String ?? "",
+                          eventImageUrl: eventQuerySnapshot["eventImageUrl"] as? String ?? "",
+                          isExpired: eventQuerySnapshot["isExpired"] as? Bool ?? true,
+                          title: eventQuerySnapshot["title"] as? String ?? "",
+                          location: Location(latitude: eventQuerySnapshot["location.latitude"] as? String ?? "", longitude: eventQuerySnapshot["location.longitude"] as? String ?? ""),
+                          createdAt: eventQuerySnapshot["createdAt"] as? Date ?? Date(),
+                          eventUpdates: [EventUpdate]())
+                    
+                    return tempEvent
+                    
+                }
+            }
+        }
+        
+    }
+    
+    
+    func addEvent(_ event: Event) {
         do {
-            _ = try store.collection(path).addDocument(from: event)
+            _ = try db.collection(path).addDocument(from: event)
         } catch {
             fatalError("Unable to create event!")
+        }
+    }
+    
+    func addEventUpdate(eventId: String, eventUpdate: EventUpdate) {
+        do {
+            _ = try db.collection(path).document(eventId).collection("eventUpdates").addDocument(from: eventUpdate)
+        } catch {
+            fatalError("Unable to add eventUpdate")
+        }
+    }
+    
+    func updateEventUpdate(eventId: String, eventUpdate: EventUpdate) {
+        do {
+            _ = try db.collection(path).document(eventId)
+                .collection("eventUpdates").document(eventUpdate.id!).setData(from: eventUpdate, merge: true)
+        } catch {
+            fatalError("Unable to add eventUpdate")
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import Resolver
 
 @main
 struct MyappApp: App {
@@ -20,6 +21,8 @@ struct MyappApp: App {
         FirebaseApp.configure()
         
         //addDummyData()
+        
+        Resolver.registerAllServices()
     }
     
     
