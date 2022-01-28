@@ -7,36 +7,48 @@ class EventsViewModel: ObservableObject {
     
     @Injected var eventRepository: IEventRepository
     
-    @Published var liveTilesEvents = [EventViewModel]()
-    @Published var fullEventViewModels = [FullEventViewModel]()
+    @Published var eventReelData = [Event]()
+    @Published var events = [Event]()
     
-    private var cancellables = Set<AnyCancellable>()
+//   private var cancellables = Set<AnyCancellable>()
+//
+//    init() {
+//        // Subscribe to repository tiles
+//        eventRepository.$liveTilesEvents.map { tiles in
+//            tiles.map { tile in
+//                EventViewModel(event: tile)
+//            }
+//        }
+//        .assign(to: &$liveTilesEvents)
+//
+//        // Subscribe to repository events
+//        eventRepository.$events.map { events in
+//            events.map { event in
+//                FullEventViewModel(event: event)
+//            }
+//        }.assign(to: &$fullEventViewModels)
+//
+//    }
     
-    init() {
-        // Subscribe to repository tiles
-        eventRepository.$liveTilesEvents.map { tiles in
-            tiles.map { tile in
-                EventViewModel(event: tile)
-            }
+    @MainActor
+    func loadItems() {
+        Task {
+            async let eventsTask = eventRepository.fetchEventsAsync()
+            async let eventReelsTask = eventRepository.fetchEventReelsAsync()
+            let (events, eventReels) = try await(eventsTask, eventReelsTask)
+            
+            self.events = events
+            self.eventReelData = eventReels
         }
-        .assign(to: &$liveTilesEvents)
-        
-        // Subscribe to repository events
-        eventRepository.$events.map { events in
-            events.map { event in
-                FullEventViewModel(event: event)
-            }
-        }
-        .assign(to: &$fullEventViewModels)
     }
     
     
     func getCategories() -> [String] {
         var distinct = [String]()
         
-        fullEventViewModels.forEach { model in
-            if !distinct.contains(model.event.category) {
-                distinct.append(model.event.category)
+        events.forEach { e in
+            if !distinct.contains(e.category) {
+                distinct.append(e.category)
             }
         }
         return distinct

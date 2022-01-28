@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EventReel: View {
     
-    var events: [EventViewModel]
+    var events: [Event]
     
     var body: some View {
         
@@ -10,7 +10,7 @@ struct EventReel: View {
             
             HStack(alignment: .top, spacing: 0) {
                 ForEach(events){ event in
-                    EventReelItem(model: event)
+                    EventReelItem(event)
                 }
             }
         }
@@ -20,7 +20,7 @@ struct EventReel: View {
 
 struct EventReel_Previews: PreviewProvider {
     static var previews: some View {
-        EventReel(events: EventList.eventModels)
+        EventReel(events: [EventList.allEvents[0]])
         
     }
 }

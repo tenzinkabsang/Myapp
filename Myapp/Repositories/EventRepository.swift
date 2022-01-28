@@ -11,6 +11,11 @@ class BaseEventRepository {
 }
 
 protocol IEventRepository: BaseEventRepository {
+    func fetchEventsAsync() async throws -> [Event]
+    func fetchEventReelsAsync() async throws -> [Event]
+    func fetchEventInfo(_ eventId: String) -> AnyPublisher<EventInfo?, Error>
+    func fetchEventInfo(_ eventId: String) async throws -> EventInfo? 
+    
     func addEvent(_ event: Event)
     func addEventUpdate(eventId: String, eventUpdate: EventUpdate)
     func updateEventUpdate(eventId: String, eventUpdate: EventUpdate)
@@ -19,6 +24,7 @@ protocol IEventRepository: BaseEventRepository {
 
 
 class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
+   
     private let path: String = "events"
     private let db = Firestore.firestore()
     
@@ -28,25 +34,102 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
     
     override init() {
         super.init()
-        loadData()
+        //loadData()
     }
+    
+    func fetchEventsAsync() async throws -> [Event] {
+        let eventSnapshot = try await db.collection(path).getDocuments()
+        
+        return eventSnapshot.documents.compactMap { document in
+            try? document.data(as: Event.self)
+        }
+    }
+    
+    
+    func fetchEventReelsAsync() async throws -> [Event] {
+        let eventSnapshot = try await db.collection(path).getDocuments()
+        
+        return eventSnapshot.documents.compactMap { document in
+            try? document.data(as: Event.self)
+        }
+    }
+    
+    
+    func fetchEventInfo(_ eventId: String) async throws -> EventInfo? {
+        let snapshot = try await db.collection("eventInfos").whereField("eventId", isEqualTo: eventId).getDocuments()
+        
+        return snapshot.documents.compactMap { document in
+            try? document.data(as: EventInfo.self)
+        }.first
+    }
+    
+    
+    func fetchEventInfo(_ eventId: String) -> AnyPublisher<EventInfo?, Error> {
+        Future<EventInfo?, Error> { promise in
+            self.db.collection("eventInfos")
+                .whereField("eventId", isEqualTo: eventId)
+                .addSnapshotListener { snapshot, error in
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+                    
+                    guard let snapshot = snapshot else {
+                        //promise(.failure(Error))
+                        return
+                    }
+                    let eventInfo = snapshot.documents.compactMap { document in
+                        try? document.data(as: EventInfo.self)
+                    }.first
+                    
+                    promise(.success(eventInfo))
+                }
+        }
+        .eraseToAnyPublisher()
+    }
+    
     
     
     func loadData() {
-        self.events = [Event]()
-        self.tempEvents = [Event]()
         fetchLiveTilesData()
         fetchEvents()
         
-        $tempEvents
-            .sink { events in
-                events.forEach { event in
-                    self.fetchEventAndUpdates(event)
-                }
-            }
-            .store(in: &cancellables)
+//        $tempEvents
+//            .sink { events in
+//                events.forEach { event in
+//                    self.fetchEventAndUpdates(event)
+//                }
+//            }
+//            .store(in: &cancellables)
             
     }
+    
+    
+    func fetchEventXX() -> AnyPublisher<[Event], Error> {
+        Future<[Event], Error> { promise in
+            self.db.collection(self.path)
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+                    
+                    guard let snapshot = snapshot else {
+                        //promise(.failure(error))
+                        return
+                    }
+                    let events = snapshot.documents.compactMap { document in
+                        try? document.data(as: Event.self)
+                    }
+                    
+                    promise(.success(events))
+                }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    
+    
     
     func fetchEventAndUpdates(_ event: Event) {
                
@@ -81,12 +164,7 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
                               createdAt: event.createdAt,
                               eventUpdates: eventUpdates)
                 
-                if let index = self.events.firstIndex(of: e) {
-                    self.events.remove(at: index)
-                    self.events.insert(e, at: index)
-                } else {
-                    self.events.append(e)
-                }
+                self.events.append(e)
             }
         }
     }
@@ -101,7 +179,7 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
             }
             
             if let querySnapshot = snapshot {
-                self.tempEvents = querySnapshot.documents.compactMap { eventQuerySnapshot in
+                self.events = querySnapshot.documents.compactMap { eventQuerySnapshot in
                     return Event(id: eventQuerySnapshot.documentID,
                                  author: UserInfo(userId: eventQuerySnapshot["author.userId"] as? String ?? "",
                                                   username: eventQuerySnapshot["author.username"] as? String ?? "",

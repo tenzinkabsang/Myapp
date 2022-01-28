@@ -2,22 +2,30 @@
 import SwiftUI
 
 struct EventCard: View {
-    @ObservedObject var model: FullEventViewModel
+    @ObservedObject var model: EventCardModel
+    
+    init(_ event: Event){
+        self.model = EventCardModel(event: event)
+        self.model.loadData()
+        //self.model.loadEventInfo()
+        
+    }
+    
     
     var body: some View {
         let cardHeight: Double = 400
         
         ZStack {
-            LiveEventView(eventUrl: model.event.eventImageUrl, cornerRadius: 0,  height: cardHeight)
+            LiveEventView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: cardHeight)
             VStack(alignment: .leading) {
                 Spacer()
                 
                 Group {
                     HStack {
                         
-                        CardProfileImage(imageUrl: model.event.author.profileImageUrl)
+                        CardProfileImage(imageUrl: model.profileImageUrl)
                         
-                        Text(model.getEventTitle())
+                        Text(model.eventTitle)
                             .font(.subheadline)
                             .foregroundColor(.white)
                             .fontWeight(.bold)
@@ -30,9 +38,8 @@ struct EventCard: View {
                     HStack {
                         Text("1.4 Miles")
                         
-                        let test = model.event.eventUpdates?.first?.guest.username ?? "no name"
                         
-                        Text(model.guestName)
+                        Text(model.numberOfGuests)
                         
                         Spacer()
 //                        if !event.eventUpdates?.isEmpty! {
@@ -57,6 +64,6 @@ struct EventCard: View {
 
 struct EventCard_Previews: PreviewProvider {
     static var previews: some View {
-        EventCard(model: EventList.fullEventModel[0])
+        EventCard(EventList.allEvents[0])
     }
 }

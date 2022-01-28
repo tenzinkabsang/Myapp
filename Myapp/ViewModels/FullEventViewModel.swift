@@ -12,6 +12,8 @@ class FullEventViewModel: ObservableObject, Identifiable {
     var id: String?
     @Published var event: Event
     
+    @Published var eventUpdates = [EventUpdate]()
+    
     @Published var numberOfGuests: String
     
     @Published var guestName: String
@@ -23,7 +25,8 @@ class FullEventViewModel: ObservableObject, Identifiable {
        // id = event.id
         self.numberOfGuests = FullEventViewModel.getNumberOfGuests(event.eventUpdates ?? [])
         
-        self.guestName = event.eventUpdates?[0].guest.username ?? "no name"
+       // self.guestName = event.eventUpdates?[0].guest.username ?? "no name"
+        self.guestName = "bob"
         
         $event
             .map { $0.id }
@@ -32,7 +35,8 @@ class FullEventViewModel: ObservableObject, Identifiable {
     }
     
     func getEventTitle() -> String {
-        let count = self.event.eventUpdates?[0].guest.username ?? "no name"
+        //let count = self.event.eventUpdates?[0].guest.username ?? "no name"
+        let count = 10
         return  "#" + self.event.category.uppercased() + " " + self.event.title + " \(count)"
     }
     

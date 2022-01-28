@@ -34,6 +34,13 @@ struct EventUpdate: Codable, Hashable, Identifiable {
     @ServerTimestamp var createdAt: Date?
 }
 
+struct EventInfo: Codable, Hashable, Identifiable {
+    @DocumentID var id: String?
+    var eventId: String
+    var guestIds: [String]
+    var numberOfGuests: Int
+}
+
 struct Location: Codable, Hashable {
     var latitude: String
     var longitude: String

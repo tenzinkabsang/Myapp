@@ -10,26 +10,30 @@ struct HomeView: View {
                 
                 CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
                 
-                EventReel(events: viewModel.liveTilesEvents).listRowInsets(EdgeInsets())
+                EventReel(events: viewModel.eventReelData)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
             
-                ForEach(viewModel.fullEventViewModels) { event in
-                    EventCard(model: event)
+                ForEach(viewModel.events) { event in
+                    EventCard(event)
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
                
             }
             .refreshable {
-                self.viewModel.refreshData()
+                self.viewModel.loadItems()
             }
             .listStyle(.inset)
             .navigationTitle("New")
         }
     }
+        
     
     init() {
         //self.viewModel.fetchDataManual()
        // self.viewModel.fetchEvents()
+        self.viewModel.loadItems()
     }
 }
 
