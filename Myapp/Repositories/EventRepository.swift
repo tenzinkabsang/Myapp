@@ -63,6 +63,14 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
         }.first
     }
     
+    func fetchEventInfoTest(_ eventId: String) async throws -> EventInfo? {
+        let snapshot = try await db.collection("eventInfos").whereField("eventId", isEqualTo: eventId).getDocuments()
+        
+        return snapshot.documents.compactMap { document in
+            try? document.data(as: EventInfo.self)
+        }.first
+    }
+    
     
     func fetchEventInfo(_ eventId: String) -> AnyPublisher<EventInfo?, Error> {
         Future<EventInfo?, Error> { promise in

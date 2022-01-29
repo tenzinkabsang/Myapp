@@ -5,7 +5,8 @@ struct HomeView: View {
         
     var body: some View {
         NavigationView{
-            
+            VStack(alignment: .leading, spacing: 0) {
+            NavView()
             List {
                 
                 CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
@@ -26,6 +27,8 @@ struct HomeView: View {
             }
             .listStyle(.inset)
             .navigationTitle("New")
+            .navigationBarHidden(true)
+        }
         }
     }
         

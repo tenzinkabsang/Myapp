@@ -8,6 +8,7 @@
 import Foundation
 import Resolver
 import Combine
+import Firebase
 
 class EventCardModel: ObservableObject, Identifiable {
     @Injected var eventRepository: IEventRepository
@@ -19,6 +20,8 @@ class EventCardModel: ObservableObject, Identifiable {
     
     var id: String?
     
+    private let db = Firestore.firestore()
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(event: Event){
@@ -28,8 +31,28 @@ class EventCardModel: ObservableObject, Identifiable {
         self.id = event.id
     }
     
+    func loadEventInfo() {
+        db.collection("eventInfos").whereField("eventId", isEqualTo: self.id!).addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error getting events: \(error.localizedDescription)")
+                    return
+                }
+    
+                if let querySnapshot = querySnapshot {
+                    let eventInfo = querySnapshot.documents.compactMap { document in
+                        try? document.data(as: EventInfo.self)
+                    }.first
+                    
+                    self.numberOfGuests =  "\(eventInfo?.guestIds.count ?? 0) going"
+                }
+    
+            }
+        }
+    
+    
+    
     @MainActor
-    public func loadEventInfo() {
+    public func loadEventInfox() {
         Task {
             
             let eventInfo = try await eventRepository.fetchEventInfo(self.id!)
@@ -40,8 +63,10 @@ class EventCardModel: ObservableObject, Identifiable {
         }
     }
     
+    
+    
     @MainActor
-    public func loadData() {
+    public func loadDatax() {
         
         // Subscribe to the listener
         eventRepository.fetchEventInfo(self.id!)

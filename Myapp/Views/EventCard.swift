@@ -6,8 +6,10 @@ struct EventCard: View {
     
     init(_ event: Event){
         self.model = EventCardModel(event: event)
-        self.model.loadData()
+        //self.model.loadData()
         //self.model.loadEventInfo()
+        
+        self.model.loadEventInfo()
         
     }
     
