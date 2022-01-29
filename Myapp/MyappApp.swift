@@ -28,8 +28,8 @@ struct MyappApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //ContentView()
-            HomeView()
+            ContentView()
+            //HomeView()
             .environmentObject(currentUser)
         }
         

@@ -15,7 +15,7 @@ struct EventCard: View {
     
     
     var body: some View {
-        let cardHeight: Double = 400
+        let cardHeight: Double = 450
         
         ZStack {
             LiveEventView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: cardHeight)

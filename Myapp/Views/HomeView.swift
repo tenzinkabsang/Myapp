@@ -28,7 +28,7 @@ struct HomeView: View {
             .listStyle(.inset)
             .navigationTitle("New")
             .navigationBarHidden(true)
-        }
+            }
         }
     }
         

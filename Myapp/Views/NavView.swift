@@ -22,7 +22,7 @@ struct NavView: View {
                 .resizable()
                 .frame(width: 25, height: 25)
         }
-        .foregroundColor(.purple)
+        .foregroundColor(.gray)
         .padding(.horizontal)
     }
 }

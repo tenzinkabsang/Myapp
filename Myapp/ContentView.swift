@@ -2,24 +2,51 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let imageURL = "https://via.placeholder.com/155x250"
+    @State private var selection: Tab = .home
     
-    @ObservedObject var model = ViewModel()
+    enum Tab {
+        case home
+        case search
+        case create
+        case profile
+    }
+    
     
     var body: some View {
-        List(model.events) { event in
-            Text(event.title)
-            
-            Text(event.author.username)
-        }
-    }
-    
-    
-    init() {
-        model.getEvents()
-    }
-    
         
+        TabView(selection: $selection) {
+            HomeView()
+                .tabItem {
+                    //Label("Home", systemImage: "house")
+                    Image(systemName: "house")
+                }
+                .tag(Tab.home)
+            
+            HomeView()
+                .tabItem {
+                    //Label("Search", systemImage: "magnifyingglass")
+                    Image(systemName: "magnifyingglass")
+                }
+                .tag(Tab.search)
+            
+            HomeView()
+                .tabItem {
+                    //Label("Create", systemImage: "plus.circle")
+                    Image(systemName: "plus.circle")
+                }
+                .tag(Tab.create)
+            
+            HomeView()
+                .tabItem {
+                    //Label("Profile", systemImage: "person.circle")
+                    Image(systemName: "person.circle")
+                }
+                .tag(Tab.profile)
+        }
+        
+    }
+    
+    
     
 }
 
