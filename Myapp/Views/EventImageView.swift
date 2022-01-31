@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct LiveEventView: View {
+struct EventImageView: View {
     var eventUrl: String
     var cornerRadius: Double?
     var width: Double?
@@ -19,7 +19,7 @@ struct LiveEventView: View {
         
         GeometryReader { geometry in
             
-            let imageWidth: Double = width ?? geometry.size.width
+            let imageWidth: Double = (width == nil || width == .infinity) ? geometry.size.width : width!
             
             let locationUrl = "\(eventUrl)\(Int(imageWidth))x\(Int(height))"
             
@@ -31,7 +31,9 @@ struct LiveEventView: View {
                         .frame(width: imageWidth, height: height)
                 }
                 .indicator(.activity)
+                .scaledToFill()
                 .transition(.fade(duration: 0.5))
+                //.frame(minWidth: 0, maxWidth: imageWidth, minHeight: height)
                 .frame(width: imageWidth, height: height)
                 .cornerRadius(cornerRadius ?? 5)
             
@@ -69,6 +71,6 @@ struct LiveEventView: View {
 
 struct LiveEventView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveEventView(eventUrl: "https://via.placeholder.com/", width: 250, height: 250)
+        EventImageView(eventUrl: "https://via.placeholder.com/", width: 250, height: 250)
     }
 }

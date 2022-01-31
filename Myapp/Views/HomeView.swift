@@ -9,11 +9,13 @@ struct HomeView: View {
             NavView()
             List {
                 
-                CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
-                
+//                CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+//
                 EventReel(events: viewModel.eventReelData)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
+                
+                //EventGrid(events: viewModel.eventReelData)
             
                 ForEach(viewModel.events) { event in
                     EventCard(event)

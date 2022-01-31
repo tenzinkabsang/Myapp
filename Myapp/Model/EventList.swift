@@ -1,12 +1,7 @@
 import Foundation
 
 struct EventList {
-    
-    static let fullEventModel = [
-        FullEventViewModel(event: EventList.allEvents[0])
-    ]
-    
-    
+        
     static let allEvents = [
         Event(id: "event-1",
               author: UserInfo(userId: "user1",

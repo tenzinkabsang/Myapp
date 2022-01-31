@@ -18,7 +18,7 @@ struct EventCard: View {
         let cardHeight: Double = 450
         
         ZStack {
-            LiveEventView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: cardHeight)
+            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: cardHeight)
             VStack(alignment: .leading) {
                 Spacer()
                 
