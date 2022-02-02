@@ -3,22 +3,19 @@ import SwiftUI
 
 struct EventCard: View {
     @ObservedObject var model: EventCardModel
+    var cardHeight: CGFloat
     
-    init(_ event: Event){
-        self.model = EventCardModel(event: event)
-        //self.model.loadData()
-        //self.model.loadEventInfo()
-        
+    init(eventCardModel: EventCardModel, cardHeight: CGFloat = 450){
+        self.cardHeight = cardHeight
+        self.model = eventCardModel
         self.model.loadEventInfo()
-        
     }
     
     
     var body: some View {
-        let cardHeight: Double = 450
-        
+                
         ZStack {
-            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: cardHeight)
+            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: self.cardHeight)
             VStack(alignment: .leading) {
                 Spacer()
                 
@@ -59,13 +56,11 @@ struct EventCard: View {
             }
         }
         .frame(height: cardHeight)
-        .padding([.bottom, .top], 10)
-        
     }
 }
 
 struct EventCard_Previews: PreviewProvider {
     static var previews: some View {
-        EventCard(EventList.allEvents[0])
+        EventCard(eventCardModel: EventCardModel(event: EventList.allEvents[0]))
     }
 }

@@ -10,7 +10,15 @@ struct EventReel: View {
             
             HStack(alignment: .top, spacing: 0) {
                 ForEach(events){ event in
-                    EventReelItem(event)
+                    
+                    NavigationLink {
+                        let eventCardModel = EventCardModel(event: event)
+                        EventDetail(eventCardModel: eventCardModel)
+                    } label: {
+                        EventReelItem(event)
+                    }
+
+                   
                 }
             }
         }

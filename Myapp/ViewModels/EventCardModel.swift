@@ -10,6 +10,9 @@ import Resolver
 import Combine
 import Firebase
 
+
+import FirebaseFirestoreSwift
+
 class EventCardModel: ObservableObject, Identifiable {
     @Injected var eventRepository: IEventRepository
         

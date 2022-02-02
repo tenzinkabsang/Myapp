@@ -14,9 +14,8 @@ struct EventGridItem: View {
     private var width: CGFloat = .infinity
     private var height: CGFloat = 140
     
-    
-    init(_ event: Event){
-        self.model = EventGridModel(event: event)
+    init(_ model: EventGridModel) {
+        self.model = model
     }
     
     
@@ -43,6 +42,6 @@ struct EventGridItem: View {
 
 struct EventGridItem_Previews: PreviewProvider {
     static var previews: some View {
-        EventGridItem(EventList.allEvents[0])
+        EventGridItem(EventList.eventGridModels[0])
     }
 }

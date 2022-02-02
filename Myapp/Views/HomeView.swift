@@ -6,7 +6,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView{
             VStack(alignment: .leading, spacing: 0) {
-            NavView()
+            //NavView()
             List {
                 
 //                CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
@@ -18,7 +18,18 @@ struct HomeView: View {
                 //EventGrid(events: viewModel.eventReelData)
             
                 ForEach(viewModel.events) { event in
-                    EventCard(event)
+                    let cardModel = EventCardModel(event: event)
+                    
+                    ZStack {
+                        NavigationLink(
+                            destination: EventDetail(eventCardModel: cardModel)){
+                                EmptyView()
+                            }
+                            .opacity(0)
+                        EventCard(eventCardModel: cardModel)
+                            .padding([.bottom, .top], 10)
+                    }
+                    
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
@@ -29,7 +40,8 @@ struct HomeView: View {
             }
             .listStyle(.inset)
             .navigationTitle("New")
-            .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
+            //.navigationBarHidden(true)
             }
         }
     }

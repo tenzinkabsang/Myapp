@@ -13,6 +13,8 @@
 		9626129F2799D9A500B619BF /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9626129E2799D9A500B619BF /* EventService.swift */; };
 		962612A12799E9F800B619BF /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962612A02799E9F800B619BF /* ViewModel.swift */; };
 		962612A32799F13D00B619BF /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962612A22799F13D00B619BF /* Util.swift */; };
+		96500FBE27A8B92700063671 /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96500FBD27A8B92700063671 /* EventDetail.swift */; };
+		96500FC027A8B96600063671 /* EventDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96500FBF27A8B96600063671 /* EventDetailModel.swift */; };
 		965545FF27A34A1100201138 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 965545FE27A34A1100201138 /* GoogleService-Info.plist */; };
 		966CC102279B95870087E991 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966CC101279B95870087E991 /* DummyData.swift */; };
 		9676F8A3279B236F0047DC96 /* EventReelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9676F8A2279B236F0047DC96 /* EventReelItem.swift */; };
@@ -49,6 +51,8 @@
 		9626129E2799D9A500B619BF /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		962612A02799E9F800B619BF /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		962612A22799F13D00B619BF /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		96500FBD27A8B92700063671 /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
+		96500FBF27A8B96600063671 /* EventDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailModel.swift; sourceTree = "<group>"; };
 		965545FE27A34A1100201138 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		966CC101279B95870087E991 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		9676F8A2279B236F0047DC96 /* EventReelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReelItem.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			children = (
 				968E692C279C540C00A0C8A9 /* EventsViewModel.swift */,
 				96CD91B827A4793300C08589 /* EventCardModel.swift */,
+				96500FBF27A8B96600063671 /* EventDetailModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				968E692A279C506300A0C8A9 /* EventImageView.swift */,
 				968E692E279CBC3100A0C8A9 /* EventCard.swift */,
 				9623370827A5866B0090D57D /* NavView.swift */,
+				96500FBD27A8B92700063671 /* EventDetail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 				96E7A8A927988E4100C0E27E /* ContentView.swift in Sources */,
 				9626129D2799D7B900B619BF /* EventList.swift in Sources */,
 				9679182B279DD8A000272EA6 /* CategoryBadgeReel.swift in Sources */,
+				96500FBE27A8B92700063671 /* EventDetail.swift in Sources */,
 				9676F8A3279B236F0047DC96 /* EventReelItem.swift in Sources */,
 				968E692B279C506300A0C8A9 /* EventImageView.swift in Sources */,
 				967B8BE827A099130051E403 /* injection.swift in Sources */,
@@ -342,6 +349,7 @@
 				9676F8A5279B3F920047DC96 /* EventReel.swift in Sources */,
 				9693DE4427A5EA0E00D630CB /* EventGrid.swift in Sources */,
 				966CC102279B95870087E991 /* DummyData.swift in Sources */,
+				96500FC027A8B96600063671 /* EventDetailModel.swift in Sources */,
 				968E692D279C540C00A0C8A9 /* EventsViewModel.swift in Sources */,
 				968E6924279C49E400A0C8A9 /* EventRepository.swift in Sources */,
 				962612A12799E9F800B619BF /* ViewModel.swift in Sources */,

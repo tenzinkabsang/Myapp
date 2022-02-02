@@ -139,45 +139,6 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
     
     
     
-    func fetchEventAndUpdates(_ event: Event) {
-               
-        var eventUpdates = [EventUpdate]()
-        self.db.collection(path).document(event.id!).collection("eventUpdates").order(by: "createdAt", descending: true).addSnapshotListener { sub, error in
-            if let error = error {
-                print("Error getting events: \(error.localizedDescription)")
-                return
-            }
-            
-            if let sub = sub {
-                eventUpdates = sub.documents.compactMap { d -> EventUpdate? in
-                    //return try? d.data(as: EventUpdate.self)
-                    
-                    return EventUpdate(id: d.documentID,
-                                       guest: UserInfo(userId: d["guest.userId"] as? String ?? "",
-                                                       username: d["guest.username"] as? String ?? "",
-                                                       profileImageUrl: d["guest.profileImageUrl"] as? String ?? ""),
-                                       comments: d["comments"] as? [String] ?? [],
-                                       images: d["images"] as? [String] ?? [],
-                                       createdAt: d["createdAt"] as? Date ?? Date())
-                }
-                
-                
-                let e = Event(id: event.id,
-                              author: event.author,
-                              category: event.category,
-                              eventImageUrl: event.eventImageUrl,
-                              isExpired: event.isExpired,
-                              title: event.title,
-                              location: event.location,
-                              createdAt: event.createdAt,
-                              eventUpdates: eventUpdates)
-                
-                self.events.append(e)
-            }
-        }
-    }
-    
-    
     func fetchEvents() {
         // 1. Get events
         db.collection(path).getDocuments { snapshot, error in

@@ -9,24 +9,20 @@ import SwiftUI
 
 struct EventGrid: View {
     
-    var events: [Event]
+    var eventGridModels: [EventGridModel]
     
     @State var gridLayout: [GridItem]
     
-    init(events: [Event]) {
-        self.events = events
-        if (self.events.count % 2 != 0) {
-            self.events.removeLast()
-        }
-        
+    init(_ models: [EventGridModel]) {
+        self.eventGridModels = models
         self.gridLayout = Array(repeating: GridItem(.flexible(), spacing: 2), count: 3)
     }
     
     var body: some View {
             
         LazyVGrid(columns: gridLayout, alignment: .center, spacing: 2) {
-            ForEach(events) { event in
-                EventGridItem(event)
+            ForEach(eventGridModels) { model in
+                EventGridItem(model)
                     
             }
         }
@@ -38,6 +34,6 @@ struct EventGrid: View {
 
 struct EventGrid_Previews: PreviewProvider {
     static var previews: some View {
-        EventGrid(events: [EventList.allEvents[0]])
+        EventGrid(EventList.eventGridModels)
     }
 }

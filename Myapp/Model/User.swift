@@ -29,9 +29,26 @@ struct Event: Codable, Hashable, Identifiable {
 struct EventUpdate: Codable, Hashable, Identifiable {
     @DocumentID var id: String?
     var guest: UserInfo
-    var comments: [String]
-    var images: [String]
+    var comments: [UserComment]
+    var images: [UserImage]
     @ServerTimestamp var createdAt: Date?
+}
+
+struct UserImage: Codable, Hashable {
+    var userId: String
+    var username: String
+    var profileImageUrl: String
+    
+    @ServerTimestamp var createdAt: Date?
+    var imageUrl: String
+}
+
+struct UserComment: Codable, Hashable {
+    var userId: String
+    var username: String
+    var profileImageUrl: String
+    @ServerTimestamp var createdAt: Date?
+    var comment: String
 }
 
 struct EventInfo: Codable, Hashable, Identifiable {

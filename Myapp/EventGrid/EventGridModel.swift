@@ -13,9 +13,9 @@ class EventGridModel: ObservableObject, Identifiable {
     @Published var title: String
     var id: String?
     
-    init(event: Event) {
-        self.id = event.id
-        self.eventImageUrl = event.eventImageUrl
-        self.title = event.category
+    init(id: String?, imageUrl: String, title: String) {
+        self.id = id
+        self.eventImageUrl = imageUrl
+        self.title = title
     }
 }
