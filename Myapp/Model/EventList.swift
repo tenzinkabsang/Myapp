@@ -2,7 +2,9 @@ import Foundation
 
 struct EventList {
     
-    static let eventGridModels = [EventGridModel(id: "user1", imageUrl: "https://via.placeholder.com/", title: "Some amazing title")]
+    static let eventGridModels = [EventGridItemModel(id: "user1", imageUrl: "https://via.placeholder.com/", title: "Some amazing title")]
+    
+    static let categories = [Category(id: "1", name: "Soccer"), Category(id: "2", name: "Music"), Category(id: "3", name: "Hiking")]
         
     static let allEvents = [
         Event(id: "event-1",

@@ -17,8 +17,7 @@ struct EventReel: View {
                     } label: {
                         EventReelItem(event)
                     }
-
-                   
+                    .buttonStyle(FlatLinkStyle())
                 }
             }
         }

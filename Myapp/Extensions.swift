@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 extension Publisher where Failure == Never {
     func weakAssign<T: AnyObject>(
@@ -26,3 +27,9 @@ extension Array {
         }
     }
 }
+
+extension UIApplication {
+      func dismissKeyboard() {
+          sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+      }
+  }

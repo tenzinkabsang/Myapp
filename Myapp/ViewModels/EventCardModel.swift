@@ -21,6 +21,7 @@ class EventCardModel: ObservableObject, Identifiable {
     @Published var profileImageUrl: String
     @Published var numberOfGuests = ""
     
+    
     var id: String?
     
     private let db = Firestore.firestore()

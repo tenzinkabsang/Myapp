@@ -2,56 +2,79 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var viewModel = EventsViewModel()
-        
+    
+    @State private var searchText = ""
+    
     var body: some View {
         NavigationView{
-            VStack(alignment: .leading, spacing: 0) {
-            //NavView()
             List {
                 
-//                CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
-//
+                CategoryBadgeReel(categories: viewModel.categories).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+                
                 EventReel(events: viewModel.eventReelData)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                 
-                //EventGrid(events: viewModel.eventReelData)
-            
+                
                 ForEach(viewModel.events) { event in
                     let cardModel = EventCardModel(event: event)
                     
                     ZStack {
-                        NavigationLink(
-                            destination: EventDetail(eventCardModel: cardModel)){
-                                EmptyView()
-                            }
-                            .opacity(0)
                         EventCard(eventCardModel: cardModel)
-                            .padding([.bottom, .top], 10)
+                        
+                        NavigationLink {
+                            EventDetail(eventCardModel: cardModel)
+                        } label: {
+                            EmptyView()
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
-               
+            }
+            .onAppear{
+                UITableView.appearance().showsVerticalScrollIndicator = false
             }
             .refreshable {
                 self.viewModel.loadItems()
             }
-            .listStyle(.inset)
-            .navigationTitle("New")
-            .navigationBarTitleDisplayMode(.inline)
-            //.navigationBarHidden(true)
+            .searchable(text: $searchText){
+                ForEach(viewModel.getCategories(), id:\.self) { category in
+                    Text(category).searchCompletion(category)
+                }
             }
+            .onSubmit(of: .search) {
+                print(searchText)
+            }
+            
+            .listStyle(.inset)
+            
+            .navigationTitle("New")
+            .toolbar {
+                Button {
+                    // TODO: bring focus to searchbar
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 20, weight: .ultraLight))
+                        .foregroundColor(.black)
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
-        
+    
     
     init() {
-        //self.viewModel.fetchDataManual()
-       // self.viewModel.fetchEvents()
         self.viewModel.loadItems()
     }
+    
+    
+    //                CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+    //
+    
+    //EventGrid(events: viewModel.eventReelData)
 }
 
 struct HomeView_Previews: PreviewProvider {

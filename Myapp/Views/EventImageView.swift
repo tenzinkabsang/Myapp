@@ -37,33 +37,6 @@ struct EventImageView: View {
                 .frame(width: imageWidth, height: height)
                 .cornerRadius(cornerRadius ?? 5)
             
-            /**
-             AsyncImage(url: URL(string: locationUrl)) { img in
-             img.resizable()
-             .scaledToFill()
-             } placeholder: {
-             Color.purple.opacity(0.1)
-             }
-             .frame(width: imageWidth, height: height)
-             .cornerRadius(cornerRadius ?? 5)
-             **/
-            
-            //            AsyncImage(url: URL(string: locationUrl)){ phase in
-            //                if let image = phase.image {
-            //                    image
-            //                        .resizable()
-            //                        .scaledToFill()
-            //                } else if phase.error != nil {
-            //                    Text(phase.error?.localizedDescription ?? "error")
-            //                        .foregroundColor(Color.pink)
-            //                        .frame(width: imageWidth, height: height)
-            //                } else {
-            //                    Color.purple.opacity(0.1)
-            //                }
-            //            }
-            //            .frame(width: imageWidth, height: height)
-            //            .cornerRadius(cornerRadius ?? 5)
-            
             
         }
     }

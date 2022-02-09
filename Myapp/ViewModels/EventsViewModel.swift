@@ -6,9 +6,11 @@ import Combine
 class EventsViewModel: ObservableObject {
     
     @Injected var eventRepository: IEventRepository
+    @Injected var categoryRepository: ICategoryRepository
     
     @Published var eventReelData = [Event]()
     @Published var events = [Event]()
+    @Published var categories = [Category]()
     
 //   private var cancellables = Set<AnyCancellable>()
 //
@@ -35,10 +37,12 @@ class EventsViewModel: ObservableObject {
         Task {
             async let eventsTask = eventRepository.fetchEventsAsync()
             async let eventReelsTask = eventRepository.fetchEventReelsAsync()
-            let (events, eventReels) = try await(eventsTask, eventReelsTask)
+            async let categoriesTask = categoryRepository.fetchAllCategoriesAsync()
+            let (events, eventReels, categories) = try await(eventsTask, eventReelsTask, categoriesTask)
             
             self.events = events
             self.eventReelData = eventReels
+            self.categories = categories
         }
     }
     

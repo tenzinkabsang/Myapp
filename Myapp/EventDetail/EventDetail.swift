@@ -16,20 +16,16 @@ struct EventDetail: View {
     }
     
     var body: some View {
-        VStack {
-            
-            List {
+        
+        ScrollView(showsIndicators: false) {
+            VStack {
                 EventCard(eventCardModel: model.eventCardModel, cardHeight: 550)
-                    .listRowInsets(EdgeInsets())
-                    .padding(.bottom, 20)
-                
-                
-                EventGrid(model.eventGridModels)
+                    .padding(.bottom, 5.0)
+                UserPostedImagesGrid(model.eventGridItemModels)
             }
-            .listStyle(.inset)
-            .ignoresSafeArea()
+            
         }
-        .navigationTitle("")
+        .ignoresSafeArea()
     }
 }
 

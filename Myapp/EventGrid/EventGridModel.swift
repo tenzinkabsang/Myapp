@@ -2,20 +2,18 @@
 //  EventGridModel.swift
 //  Myapp
 //
-//  Created by Tenzin Kabsang on 1/29/22.
+//  Created by Tenzin Kabsang on 2/8/22.
 //
 
 import Foundation
+import SwiftUI
 
 class EventGridModel: ObservableObject, Identifiable {
     
-    @Published var eventImageUrl: String
-    @Published var title: String
-    var id: String?
+    @Published var events: [Event]
     
-    init(id: String?, imageUrl: String, title: String) {
-        self.id = id
-        self.eventImageUrl = imageUrl
-        self.title = title
+    init(events: [Event]) {
+        self.events = events
     }
+    
 }

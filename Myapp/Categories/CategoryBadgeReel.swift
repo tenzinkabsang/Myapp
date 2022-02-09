@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryBadgeReel: View {
     
-    var categories: [String]
+    var categories: [Category]
     
     
     var body: some View {
@@ -18,7 +18,7 @@ struct CategoryBadgeReel: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
     
-                ForEach(categories, id:\.self) { category in
+                ForEach(categories) { category in
                     CategoryBadge(category: category)
                 }
             }
@@ -29,8 +29,6 @@ struct CategoryBadgeReel: View {
 
 struct CategoryBadgeReel_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryBadgeReel(categories: EventList.allEvents.map{ e in
-            e.category
-        })
+        CategoryBadgeReel(categories: EventList.categories)
     }
 }

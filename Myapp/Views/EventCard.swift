@@ -5,57 +5,89 @@ struct EventCard: View {
     @ObservedObject var model: EventCardModel
     var cardHeight: CGFloat
     
+    private var bottomSpace: CGFloat = 15.0
+    
+    
+    @State var showCommentsIcon = true
+        
     init(eventCardModel: EventCardModel, cardHeight: CGFloat = 450){
-        self.cardHeight = cardHeight
+        
+        // Add whitespace at bottom of card
+        self.cardHeight = cardHeight + bottomSpace
+        
+        
         self.model = eventCardModel
         self.model.loadEventInfo()
     }
     
     
     var body: some View {
-                
-        ZStack {
-            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: self.cardHeight)
-            VStack(alignment: .leading) {
-                Spacer()
-                
-                Group {
+        
+        ZStack(alignment: .bottomTrailing) {
+            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: self.cardHeight)            
+            
+            HStack(alignment: .bottom, spacing: 5) {
+                VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        
-                        CardProfileImage(imageUrl: model.profileImageUrl)
-                        
-                        Text(model.eventTitle)
+                         Spacer()
+                        Text("1.4 Miles " + model.numberOfGuests)
+                            .padding(5)
+                            .background(.gray)
                             .font(.subheadline)
                             .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .padding(.all, 9)
+                            .opacity(0.8)
+                        
+                        Spacer()
+                    }
+                    .padding(.bottom, 5)
+                    
+                    HStack(alignment: .center) {
+                        CardProfileImage(imageUrl: model.profileImageUrl)
+                            .padding(.leading, 5)
+                        
+                        Text(model.eventTitle)
+                        //.fontWeight(.bold)
                             .lineLimit(2)
                     }
-                    .offset(y: 20)
-                    
-                    // TODO: Figure this out, possibly use firestore subscriptions to dynamically calculate
-                    HStack {
-                        Text("1.4 Miles")
-                        
-                        
-                        Text(model.numberOfGuests)
-                        
-                        Spacer()
-//                        if !event.eventUpdates?.isEmpty! {
-//                            Text(event.eventUpdates[0].guest.username)
-//                        } else {
-//                            Text("event update is empty")
-//                        }
-                        
-                        Spacer()
-                    }
-                    
+                    .font(.subheadline)
+                    .foregroundColor(.white)
                 }
-                .padding(.all, 8.0)
                 
+                if showCommentsIcon {
+                    VStack(alignment: .center, spacing: 5) {
+                        Button {
+                            // Show comments
+                        } label: {
+                            Image(systemName: "text.bubble")
+                                .font(.system(size: 40, weight: .ultraLight))
+                                .foregroundColor(.black)
+                            
+                        }
+                        
+                        Button {
+                            // Show comments
+                        } label: {
+                            Image(systemName: "heart")
+                                .font(.system(size: 40, weight: .ultraLight))
+                                .foregroundColor(.black)
+                            
+                        }
+                        .padding(.bottom, 10)
+                        
+                    }
+                }
             }
+            .padding(.vertical, 9)
+            .padding(.horizontal, 5)
         }
         .frame(height: cardHeight)
+        .padding(.bottom, bottomSpace)
+        .overlay(
+            Rectangle()
+                .frame(height: bottomSpace)
+                .foregroundColor(.white),
+            alignment: .bottom
+        )
     }
 }
 

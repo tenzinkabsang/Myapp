@@ -9,13 +9,14 @@ import SwiftUI
 
 
 struct CategoryBadge: View {
-    var category: String
+    var category: Category
+    
     
     var body: some View {
         Button {
             //TODO: Display the search view for this category
         } label: {
-            Text(category)
+            Text(category.name)
                 .font(.subheadline)
                 .foregroundColor(.primary)
                 .padding([.leading, .trailing], 20)
@@ -32,6 +33,6 @@ struct CategoryBadge: View {
 
 struct CategoryBadge_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryBadge(category: "Food")
+        CategoryBadge(category: EventList.categories[0])
     }
 }

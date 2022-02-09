@@ -9,20 +9,21 @@ import SwiftUI
 
 struct EventGridItem: View {
     
-    @ObservedObject var model: EventGridModel
+    @ObservedObject var model: EventGridItemModel
     
     private var width: CGFloat = .infinity
-    private var height: CGFloat = 140
+    private var gridItemHeight: CGFloat
     
-    init(_ model: EventGridModel) {
+    init(model: EventGridItemModel, gridItemHeight: CGFloat) {
         self.model = model
+        self.gridItemHeight = gridItemHeight
     }
     
     
     var body: some View {
         ZStack {
             
-            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0, width: self.width, height: self.height)
+            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0, width: self.width, height: self.gridItemHeight)
             
             VStack(alignment: .leading) {
                 Spacer()
@@ -34,7 +35,7 @@ struct EventGridItem: View {
                     .lineLimit(2)
                 
             }
-            .frame(height: self.height)
+            .frame(height: self.gridItemHeight)
             
         }
     }
@@ -42,6 +43,6 @@ struct EventGridItem: View {
 
 struct EventGridItem_Previews: PreviewProvider {
     static var previews: some View {
-        EventGridItem(EventList.eventGridModels[0])
+        EventGridItem(model: EventList.eventGridModels[0], gridItemHeight: 140)
     }
 }

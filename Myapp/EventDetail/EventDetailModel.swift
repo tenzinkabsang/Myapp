@@ -19,7 +19,7 @@ class EventDetailModel: ObservableObject {
     
     @Published var eventCardModel: EventCardModel
     
-    @Published var eventGridModels = [EventGridModel]()
+    @Published var eventGridItemModels = [EventGridItemModel]()
     
     
     private let db = Firestore.firestore()
@@ -39,11 +39,11 @@ class EventDetailModel: ObservableObject {
                     first.createdAt! > second.createdAt!
                 })
                 .map { userImage in
-                    EventGridModel(id: UUID().uuidString, imageUrl: userImage.imageUrl, title: userImage.profileImageUrl)
+                    EventGridItemModel(id: UUID().uuidString, imageUrl: userImage.imageUrl, title: userImage.username)
                     
                 }
             }
-            .assign(to: &$eventGridModels)
+            .assign(to: &$eventGridItemModels)
         
     }
     
@@ -51,15 +51,14 @@ class EventDetailModel: ObservableObject {
     func loadEventUpdates() {
         db.collection("events").document(self.id!).collection("eventUpdates")
             .addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    print("Error getting event updates: \(error.localizedDescription)")
+                
+                guard let querySnapshot = querySnapshot else {
+                    print("Error getting event updates: \(error.debugDescription)")
                     return
                 }
                 
-                if let querySnapshot = querySnapshot {
-                    self.eventUpdates = querySnapshot.documents.compactMap{ document in
-                        try? document.data(as: EventUpdate.self)
-                    }
+                self.eventUpdates = querySnapshot.documents.compactMap{ document in
+                    try? document.data(as: EventUpdate.self)
                 }
             }
     }
