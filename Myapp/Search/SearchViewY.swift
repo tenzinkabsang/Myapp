@@ -15,6 +15,10 @@ struct SearchViewY: View {
     
     @State private var searchText = ""
     
+    
+    @State private var queryString = ""
+    @State private var startSearch = false
+    
     init() {
         self.viewModel.loadInitialData()
     }
@@ -23,7 +27,7 @@ struct SearchViewY: View {
         NavigationView {
             
             ScrollView(showsIndicators: false) {
-                CategoryBadgeReel(categories: viewModel.categories)
+                CategoryBadgeReel(categories: viewModel.categories, queryString: $queryString, startSearch: $startSearch)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .padding(.vertical, 3)

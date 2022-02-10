@@ -8,27 +8,29 @@
 import SwiftUI
 
 struct CategoryBadgeReel: View {
-    
     var categories: [Category]
-    
+    @Binding var queryString: String
+    @Binding var startSearch: Bool
     
     var body: some View {
         
-        // Loop through categories and display a category batch view for each
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-    
+            HStack(spacing: 10) {
                 ForEach(categories) { category in
-                    CategoryBadge(category: category)
+                    CategoryBadge(category: category, queryString: $queryString, startSearch: $startSearch)
                 }
             }
-            .padding(.leading, 10)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
         }
     }
 }
 
 struct CategoryBadgeReel_Previews: PreviewProvider {
+    
+    @State static var queryString = ""
+    @State static var startSearch = true
     static var previews: some View {
-        CategoryBadgeReel(categories: EventList.categories)
+        CategoryBadgeReel(categories: EventList.categories, queryString: $queryString, startSearch: $startSearch)
     }
 }

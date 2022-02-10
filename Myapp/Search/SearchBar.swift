@@ -11,12 +11,10 @@ struct SearchBar: View {
     
     @Binding var queryString: String
     @Binding var isSearching: Bool
-    
-    var performSearch: ((_ searchText: String) -> Void)
-    
+    @Binding var startSearch: Bool
+       
     func closeSearch() {
         queryString = ""
-        //performSearch("")
         withAnimation {
             isSearching = false
             UIApplication.shared.dismissKeyboard()
@@ -31,6 +29,9 @@ struct SearchBar: View {
                     .foregroundColor(Color("LightGray"))
                 HStack {
                     Image(systemName: "magnifyingglass")
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(.gray)
+                    
                     TextField("Search", text: $queryString) { startedEditing in
                         if startedEditing {
                             withAnimation {
@@ -39,23 +40,28 @@ struct SearchBar: View {
                         }
                     } onCommit: {
                         withAnimation {
-                            isSearching = false
-                            performSearch(queryString)
-                           
+                            guard !queryString.isEmpty else {
+                                print("guard return")
+                                return
+                            }
+                            
+                            queryString = ""
+                            startSearch = true
                         }
                     }
                     .submitLabel(.search)
-                    
+                                        
                     if !queryString.isEmpty {
                         Button {
-                            closeSearch()
+                           queryString = ""
                         } label: {
                             Image(systemName: "xmark")
+                                .font(.system(size: 20, weight: .light))
+                                .foregroundColor(.gray)
                         }
                         .padding(.trailing, 15)
                     }
                 }
-                .foregroundColor(.gray)
                 .padding(.leading, 13)
             }
             .frame(height: 40)
@@ -70,7 +76,6 @@ struct SearchBar: View {
                         .padding(.trailing, 10)
                         .padding(.leading, -10)
                 }
-                
             }
         }
     }
@@ -80,8 +85,7 @@ struct SearchBar_Previews: PreviewProvider {
     @State static var query = ""
     @State static var searching = true
     static var previews: some View {
-        SearchBar(queryString: $query, isSearching: $searching) { searchText in
-            print(searchText)
-        }
+        SearchBar(queryString: $query, isSearching: $searching, startSearch: $searching)
     }
 }
+

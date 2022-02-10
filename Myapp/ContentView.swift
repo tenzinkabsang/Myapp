@@ -35,7 +35,7 @@ struct ContentView: View {
                 }
                 .tag(Tab.home)
             
-            SearchViewXX()
+            SearchView()
                 .tabItem {
                     //Label("Search", systemImage: "magnifyingglass")
                     Image(systemName: "magnifyingglass")

@@ -29,7 +29,26 @@ extension Array {
 }
 
 extension UIApplication {
-      func dismissKeyboard() {
-          sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-      }
-  }
+    func dismissKeyboard() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+// MARK: Extensions for UI Desigining
+extension View {
+    func hLeading() -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    func hTrailing() -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: .trailing)
+    }
+    
+    func hCenter() -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+}
