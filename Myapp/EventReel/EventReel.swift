@@ -8,7 +8,7 @@ struct EventReel: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             
-            HStack(alignment: .top, spacing: 0) {
+            HStack(alignment: .top, spacing: 10) {
                 ForEach(events){ event in
                     
                     NavigationLink {
@@ -20,8 +20,9 @@ struct EventReel: View {
                     .buttonStyle(FlatLinkStyle())
                 }
             }
+            .padding(.horizontal, 10)
         }
-        .frame(height: 275)
+        .frame(height: 275)  // 275
     }
 }
 

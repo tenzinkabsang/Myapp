@@ -16,7 +16,7 @@ struct SearchBar: View {
     
     func closeSearch() {
         queryString = ""
-        performSearch("")
+        //performSearch("")
         withAnimation {
             isSearching = false
             UIApplication.shared.dismissKeyboard()
@@ -40,8 +40,8 @@ struct SearchBar: View {
                     } onCommit: {
                         withAnimation {
                             isSearching = false
-                            print(queryString)
                             performSearch(queryString)
+                           
                         }
                     }
                     .submitLabel(.search)

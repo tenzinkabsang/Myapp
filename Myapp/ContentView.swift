@@ -11,10 +11,21 @@ struct ContentView: View {
         case profile
     }
     
+    class TabController: ObservableObject {
+        @Published var activeTab = Tab.home
+
+        func open(_ tab: Tab) {
+            activeTab = tab
+        }
+    }
+    
+    
+    @StateObject private var tabController = TabController()
+       
     
     var body: some View {
         
-        TabView(selection: $selection) {
+        TabView(selection: $tabController.activeTab) {
             HomeView()
                 .tabItem {
                     //Label("Home", systemImage: "house")
@@ -64,6 +75,7 @@ struct ContentView: View {
             // Use this appearance when scrolled all the way up:
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
+        .environmentObject(tabController)
         
     }
     

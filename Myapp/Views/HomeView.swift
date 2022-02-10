@@ -9,7 +9,7 @@ struct HomeView: View {
         NavigationView{
             List {
                 
-                CategoryBadgeReel(categories: viewModel.categories).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
+                //CategoryBadgeReel(categories: viewModel.categories).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
                 
                 EventReel(events: viewModel.eventReelData)
                     .listRowInsets(EdgeInsets())
@@ -40,27 +40,9 @@ struct HomeView: View {
             .refreshable {
                 self.viewModel.loadItems()
             }
-            .searchable(text: $searchText){
-                ForEach(viewModel.getCategories(), id:\.self) { category in
-                    Text(category).searchCompletion(category)
-                }
-            }
-            .onSubmit(of: .search) {
-                print(searchText)
-            }
-            
             .listStyle(.inset)
             
             .navigationTitle("New")
-            .toolbar {
-                Button {
-                    // TODO: bring focus to searchbar
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 20, weight: .ultraLight))
-                        .foregroundColor(.black)
-                }
-            }
             .navigationBarTitleDisplayMode(.inline)
         }
     }

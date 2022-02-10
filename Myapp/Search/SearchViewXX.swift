@@ -13,6 +13,7 @@ struct SearchViewXX: View {
     
     @State private var queryString = ""
     @State private var isSearching = false
+    @State private var searchBtnClicked = false
     
     
     init() {
@@ -22,6 +23,8 @@ struct SearchViewXX: View {
     func performSearch() {
         withAnimation {
             isSearching = false
+            searchBtnClicked = true
+            queryString = ""
             UIApplication.shared.dismissKeyboard()
         }
         
@@ -34,18 +37,39 @@ struct SearchViewXX: View {
             VStack(alignment: .leading) {
                 
                 SearchBar(queryString: $queryString, isSearching: $isSearching) { searchText in
-                    viewModel.search(searchText: searchText)
+                    //viewModel.search(searchText: searchText)
+                    performSearch()
                 }
                 
+                
+                NavigationLink(isActive: $searchBtnClicked) {
+                    SearchResultView()
+                    
+                } label: {
+                    EmptyView()
+                }
+                .hidden()
+
+                
                 if isSearching {
+                   
+                    
                     List {
                         ForEach(viewModel.categories) { category in
-                            Button {
-                                queryString = category.name
-                                performSearch()
+//                            Button {
+//                                queryString = category.name
+//                                performSearch()
+//                            } label: {
+//                                Text(category.name)
+//                            }
+//
+                            
+                            NavigationLink {
+                                SearchResultView()
                             } label: {
                                 Text(category.name)
                             }
+
 
                         }
                         

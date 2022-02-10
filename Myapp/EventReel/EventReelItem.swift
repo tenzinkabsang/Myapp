@@ -4,7 +4,7 @@ struct EventReelItem: View {
     
     @ObservedObject var model: EventReelModel
     
-    private let width: Double = 155 // 350
+    private let width: Double = 165   // 155 350
     private let height: Double = 250 // 240
     
     
@@ -16,15 +16,17 @@ struct EventReelItem: View {
     var body: some View {
         ZStack{
             
-            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 10, width: width, height: height)
+            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 5, width: width, height: height)
             
             // TODO: Add distance info here
             
             
-            VStack(alignment: .leading){
+            VStack(alignment: .center){
                 Spacer()
+                
+                
                 Text(model.eventTitle)
-                    .font(.subheadline)
+                    .font(.caption)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                     .padding(.all, 9)
@@ -32,7 +34,7 @@ struct EventReelItem: View {
             }
         }
         .frame(width: width, height: height)
-        .padding(.leading, 15)
+        //.padding(.leading, 5)
     }
    
 }
