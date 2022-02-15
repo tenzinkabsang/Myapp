@@ -12,6 +12,8 @@ class BaseEventRepository {
 
 protocol IEventRepository: BaseEventRepository {
     func fetchEventsAsync() async throws -> [Event]
+    func fetchEventsAsync(queryString: String) async throws -> [Event]
+    
     func fetchEventReelsAsync() async throws -> [Event]
     func fetchEventInfo(_ eventId: String) -> AnyPublisher<EventInfo?, Error>
     func fetchEventInfo(_ eventId: String) async throws -> EventInfo? 
@@ -38,7 +40,15 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
     }
     
     func fetchEventsAsync() async throws -> [Event] {
-        let eventSnapshot = try await db.collection(path).getDocuments()
+        let eventSnapshot = try await db.collection(path).order(by: "createdAt", descending: false).getDocuments()
+        
+        return eventSnapshot.documents.compactMap { document in
+            try? document.data(as: Event.self)
+        }
+    }
+    
+    func fetchEventsAsync(queryString: String) async throws -> [Event] {
+        let eventSnapshot = try await db.collection(path).whereField("category", isEqualTo: queryString).getDocuments()
         
         return eventSnapshot.documents.compactMap { document in
             try? document.data(as: Event.self)
@@ -47,7 +57,7 @@ class EventRepository: BaseEventRepository, IEventRepository, ObservableObject {
     
     
     func fetchEventReelsAsync() async throws -> [Event] {
-        let eventSnapshot = try await db.collection(path).getDocuments()
+        let eventSnapshot = try await db.collection(path).order(by: "createdAt", descending: false).getDocuments()
         
         return eventSnapshot.documents.compactMap { document in
             try? document.data(as: Event.self)

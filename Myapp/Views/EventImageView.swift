@@ -23,6 +23,8 @@ struct EventImageView: View {
             
             let locationUrl = "\(eventUrl)\(Int(imageWidth))x\(Int(height))"
             
+            //let locationUrl = "https://firebasestorage.googleapis.com/v0/b/myapp-c9689.appspot.com/o/\(eventUrl)"
+            
             WebImage(url: URL(string: locationUrl))
                 .resizable()
                 .placeholder {

@@ -13,9 +13,9 @@ struct SearchBar: View {
     @Binding var isSearching: Bool
     @Binding var startSearch: Bool
        
-    func closeSearch() {
-        queryString = ""
+    private func closeSearch() {
         withAnimation {
+            queryString = ""
             isSearching = false
             UIApplication.shared.dismissKeyboard()
         }
@@ -28,9 +28,7 @@ struct SearchBar: View {
                 Rectangle()
                     .foregroundColor(Color("LightGray"))
                 HStack {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(.gray)
+                    Image(systemName: "magnifyingglass").font(.system(size: 20, weight: .light)).foregroundColor(.gray)
                     
                     TextField("Search", text: $queryString) { startedEditing in
                         if startedEditing {
@@ -40,12 +38,9 @@ struct SearchBar: View {
                         }
                     } onCommit: {
                         withAnimation {
-                            guard !queryString.isEmpty else {
-                                print("guard return")
-                                return
-                            }
+                            guard !queryString.isEmpty else { return }
                             
-                            queryString = ""
+                            //queryString = ""
                             startSearch = true
                         }
                     }
@@ -55,9 +50,7 @@ struct SearchBar: View {
                         Button {
                            queryString = ""
                         } label: {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 20, weight: .light))
-                                .foregroundColor(.gray)
+                            Image(systemName: "xmark").font(.system(size: 20, weight: .light)).foregroundColor(.gray)
                         }
                         .padding(.trailing, 15)
                     }
@@ -69,13 +62,7 @@ struct SearchBar: View {
             .padding()
             
             if isSearching {
-                Button {
-                   closeSearch()
-                } label: {
-                    Text("Close")
-                        .padding(.trailing, 10)
-                        .padding(.leading, -10)
-                }
+                Button { closeSearch() } label: { Text("Close").padding(.trailing, 10).padding(.leading, -10) }
             }
         }
     }

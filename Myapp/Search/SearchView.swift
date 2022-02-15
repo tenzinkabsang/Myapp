@@ -27,36 +27,28 @@ struct SearchView: View {
                 
                 SearchBar(queryString: $queryString, isSearching: $isSearching, startSearch: $startSearch)
                 
-                
-                NavigationLink(isActive: $startSearch) {
-                    SearchResultView()
-                } label: {
-                    EmptyView()
-                }
-                .hidden()
+                // Hidden: This is one that actually handles the navigation
+                NavigationLink(isActive: $startSearch) { SearchResultView(queryString: queryString) } label: { EmptyView() }.hidden()
 
-                
                 if isSearching {
                     List {
                         ForEach(viewModel.categories) { category in
                             HStack {
                                 Button {
-                                    queryString = ""
+                                    queryString = category.name
                                     startSearch = true
                                 } label: {
                                     Text(category.name)
                                 }
+                                
                                 Spacer()
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 15, weight: .light))
-                                    .foregroundColor(.black)
+                                
+                                Image(systemName: "chevron.right").font(.system(size: 15, weight: .light)).foregroundColor(.black)
                             }
-                            
                         }
                     }
                     .gesture(DragGesture().onChanged({ _ in UIApplication.shared.dismissKeyboard() }))
                     .listStyle(.inset)
-                    
                 } else {
                     ScrollView(showsIndicators: false) {
                         CategoryBadgeReel(categories: viewModel.categories, queryString: $queryString, startSearch: $startSearch)
@@ -65,8 +57,10 @@ struct SearchView: View {
                         
                         EventGrid(eventGridModel: viewModel.eventGridModel, numberOfColumns: 2, gridItemHeight: 250)
                     }
-                    
                 }
+            }
+            .onAppear {
+                queryString = ""
             }
             .navigationBarHidden(true)
         }
