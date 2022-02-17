@@ -24,7 +24,7 @@ struct EventCard: View {
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
-            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: self.cardHeight)            
+            EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: self.cardHeight)
             
             HStack(alignment: .bottom, spacing: 5) {
                 VStack(alignment: .leading, spacing: 5) {

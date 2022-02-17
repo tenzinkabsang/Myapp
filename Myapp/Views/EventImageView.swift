@@ -8,12 +8,13 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+
+
 struct EventImageView: View {
     var eventUrl: String
     var cornerRadius: Double?
     var width: Double?
     var height: Double
-    
     
     var body: some View {
         
@@ -38,8 +39,6 @@ struct EventImageView: View {
                 //.frame(minWidth: 0, maxWidth: imageWidth, minHeight: height)
                 .frame(width: imageWidth, height: height)
                 .cornerRadius(cornerRadius ?? 5)
-            
-            
         }
     }
 }

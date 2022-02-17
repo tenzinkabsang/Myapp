@@ -3,18 +3,16 @@ import SwiftUI
 struct HomeView: View {
     @ObservedObject var viewModel = EventsViewModel()
     
-    @State private var searchText = ""
+    init() {
+        self.viewModel.loadItems()
+    }
     
     var body: some View {
         NavigationView{
             List {
-                
-                //CategoryBadgeReel(categories: viewModel.categories).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
-                
                 EventReel(events: viewModel.eventReelData)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
-                
                 
                 ForEach(viewModel.events) { event in
                     let cardModel = EventCardModel(event: event)
@@ -29,7 +27,6 @@ struct HomeView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
-                    
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
@@ -41,22 +38,10 @@ struct HomeView: View {
                 self.viewModel.loadItems()
             }
             .listStyle(.inset)
-            
             .navigationTitle("New")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
-    
-    init() {
-        self.viewModel.loadItems()
-    }
-    
-    
-    //                CategoryBadgeReel(categories: viewModel.getCategories()).listRowInsets(EdgeInsets()).listRowSeparator(.hidden)
-    //
-    
-    //EventGrid(events: viewModel.eventReelData)
 }
 
 struct HomeView_Previews: PreviewProvider {
