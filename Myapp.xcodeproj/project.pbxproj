@@ -27,6 +27,7 @@
 		9679182B279DD8A000272EA6 /* CategoryBadgeReel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679182A279DD8A000272EA6 /* CategoryBadgeReel.swift */; };
 		967B8BE627A094F50051E403 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 967B8BE527A094F50051E403 /* Resolver */; };
 		967B8BE827A099130051E403 /* injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967B8BE727A099130051E403 /* injection.swift */; };
+		96861E6727BFF76800FD3B9D /* SignupLandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96861E6627BFF76800FD3B9D /* SignupLandingView.swift */; };
 		968E6924279C49E400A0C8A9 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968E6923279C49E400A0C8A9 /* EventRepository.swift */; };
 		968E6927279C4C9100A0C8A9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 968E6926279C4C9100A0C8A9 /* FirebaseFirestore */; };
 		968E6929279C4C9100A0C8A9 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 968E6928279C4C9100A0C8A9 /* FirebaseFirestoreSwift-Beta */; };
@@ -74,6 +75,7 @@
 		96791828279DD25E00272EA6 /* CategoryBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBadge.swift; sourceTree = "<group>"; };
 		9679182A279DD8A000272EA6 /* CategoryBadgeReel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBadgeReel.swift; sourceTree = "<group>"; };
 		967B8BE727A099130051E403 /* injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = injection.swift; sourceTree = "<group>"; };
+		96861E6627BFF76800FD3B9D /* SignupLandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupLandingView.swift; sourceTree = "<group>"; };
 		968E6923279C49E400A0C8A9 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		968E692A279C506300A0C8A9 /* EventImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventImageView.swift; sourceTree = "<group>"; };
 		968E692C279C540C00A0C8A9 /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
@@ -121,6 +123,14 @@
 				9679182A279DD8A000272EA6 /* CategoryBadgeReel.swift */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		96861E6527BFF70900FD3B9D /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				96861E6627BFF76800FD3B9D /* SignupLandingView.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		968E6921279C3D8F00A0C8A9 /* ViewModels */ = {
@@ -211,6 +221,7 @@
 		96E7A8A527988E4100C0E27E /* Myapp */ = {
 			isa = PBXGroup;
 			children = (
+				96861E6527BFF70900FD3B9D /* Account */,
 				965545FE27A34A1100201138 /* GoogleService-Info.plist */,
 				96BE0A8027B1B5FB00BA1ECC /* Search */,
 				96CD91B727A4782D00C08589 /* EventReel */,
@@ -373,6 +384,7 @@
 				96BE0A8627B1D74500BA1ECC /* SearchResultView.swift in Sources */,
 				9661E58527B2CCD10064B061 /* EventGrid.swift in Sources */,
 				9679182B279DD8A000272EA6 /* CategoryBadgeReel.swift in Sources */,
+				96861E6727BFF76800FD3B9D /* SignupLandingView.swift in Sources */,
 				96500FBE27A8B92700063671 /* EventDetail.swift in Sources */,
 				9676F8A3279B236F0047DC96 /* EventReelItem.swift in Sources */,
 				968E692B279C506300A0C8A9 /* EventImageView.swift in Sources */,

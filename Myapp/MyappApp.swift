@@ -16,6 +16,11 @@ struct MyappApp: App {
      */
     @StateObject private var currentUser = CurrentUserInfo()
     
+    enum ImageSource {
+        case local
+        case remote
+    }
+    
     
     init() {
         FirebaseApp.configure()

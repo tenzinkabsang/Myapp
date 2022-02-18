@@ -52,3 +52,18 @@ extension View {
     }
     
 }
+
+
+extension Date {
+    static func fromString(dateString: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy"
+        return formatter.date(from: dateString)
+    }
+    
+    func asString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd-yyyy"
+        return formatter.string(from: self)
+    }
+}

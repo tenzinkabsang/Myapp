@@ -29,36 +29,25 @@ struct ContentView: View {
             HomeView()
                 .tabItem {
                     //Label("Home", systemImage: "house")
-                    Image(systemName: "house")
-                        .font(.system(size: 20, weight: .ultraLight))
-                        .foregroundColor(.black)
+                    tabIcon("house")
                 }
                 .tag(Tab.home)
             
             SearchView()
                 .tabItem {
-                    //Label("Search", systemImage: "magnifyingglass")
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 20, weight: .ultraLight))
-                        .foregroundColor(.black)
+                    tabIcon("magnifyingglass")
                 }
                 .tag(Tab.search)
             
             HomeView()
                 .tabItem {
-                    //Label("Create", systemImage: "plus.circle")
-                    Image(systemName: "plus.circle")
-                        .font(.system(size: 20, weight: .ultraLight))
-                        .foregroundColor(.black)
+                    tabIcon("plus.circle")
                 }
                 .tag(Tab.create)
             
-            HomeView()
+            SignupLandingView()
                 .tabItem {
-                    //Label("Profile", systemImage: "person.circle")
-                    Image(systemName: "person.circle")
-                        .font(.system(size: 20, weight: .ultraLight))
-                        .foregroundColor(.black)
+                    tabIcon("person.circle")
                 }
                 .tag(Tab.profile)
         }
@@ -79,8 +68,12 @@ struct ContentView: View {
         
     }
     
-    
-    
+    @ViewBuilder
+    private func tabIcon(_ systemName: String) -> some View {
+        Image(systemName: systemName)
+            .font(.system(size: 20, weight: .ultraLight))
+            .foregroundColor(.black)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

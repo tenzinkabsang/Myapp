@@ -28,29 +28,8 @@ struct EventCard: View {
             
             HStack(alignment: .bottom, spacing: 5) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack {
-                         Spacer()
-                        Text("1.4 Miles " + model.numberOfGuests)
-                            .padding(5)
-                            .background(.gray)
-                            .font(.subheadline)
-                            .foregroundColor(.white)
-                            .opacity(0.8)
-                        
-                        Spacer()
-                    }
-                    .padding(.bottom, 5)
-                    
-                    HStack(alignment: .center) {
-                        CardProfileImage(imageUrl: model.profileImageUrl)
-                            .padding(.leading, 5)
-                        
-                        Text(model.eventTitle)
-                        //.fontWeight(.bold)
-                            .lineLimit(2)
-                    }
-                    .font(.subheadline)
-                    .foregroundColor(.white)
+                    distanceInfo
+                    profileImageAndText
                 }
                 
                 if showCommentsIcon {
@@ -88,6 +67,35 @@ struct EventCard: View {
                 .foregroundColor(.white),
             alignment: .bottom
         )
+    }
+    
+    
+    @ViewBuilder var distanceInfo: some View {
+        HStack {
+             Spacer()
+            Text("1.6 Miles " + model.numberOfGuests)
+                .padding(5)
+                .background(.gray)
+                .font(.subheadline)
+                .foregroundColor(.white)
+                .opacity(0.8)
+            
+            Spacer()
+        }
+        .padding(.bottom, 5)
+    }
+    
+    @ViewBuilder var profileImageAndText: some View {
+        HStack(alignment: .center) {
+            CardProfileImage(imageUrl: model.profileImageUrl)
+                .padding(.leading, 5)
+            
+            Text(model.eventTitle)
+            //.fontWeight(.bold)
+                .lineLimit(2)
+        }
+        .font(.subheadline)
+        .foregroundColor(.white)
     }
 }
 

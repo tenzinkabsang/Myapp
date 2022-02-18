@@ -15,18 +15,7 @@ struct HomeView: View {
                     .listRowSeparator(.hidden)
                 
                 ForEach(viewModel.events) { event in
-                    let cardModel = EventCardModel(event: event)
-                    
-                    ZStack {
-                        EventCard(eventCardModel: cardModel)
-                        
-                        NavigationLink {
-                            EventDetail(eventCardModel: cardModel)
-                        } label: {
-                            EmptyView()
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
+                   eventCardView(event)
                 }
                 .listRowInsets(EdgeInsets())
                 .listRowSeparator(.hidden)
@@ -40,6 +29,21 @@ struct HomeView: View {
             .listStyle(.inset)
             .navigationTitle("New")
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+    
+    @ViewBuilder
+    private func eventCardView(_ event: Event) -> some View {
+        let cardModel = EventCardModel(event: event)
+        ZStack {
+            EventCard(eventCardModel: cardModel)
+            
+            NavigationLink {
+                EventDetail(eventCardModel: cardModel)
+            } label: {
+                EmptyView()
+            }
+            .buttonStyle(PlainButtonStyle())
         }
     }
 }
