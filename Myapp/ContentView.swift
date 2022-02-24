@@ -45,7 +45,7 @@ struct ContentView: View {
                 }
                 .tag(Tab.create)
             
-            SignupLandingView()
+            AccountLandingView()
                 .tabItem {
                     tabIcon("person.circle")
                 }

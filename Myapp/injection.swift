@@ -13,5 +13,6 @@ extension Resolver: ResolverRegistering {
   public static func registerAllServices() {
       register { EventRepository() as IEventRepository }.scope(.application)
       register { CategoryRepository() as ICategoryRepository }.scope(.application)
+      register { UserRepository() as IUserRepository }.scope(.application)
   }
 }

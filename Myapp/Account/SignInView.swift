@@ -1,20 +1,23 @@
 //
-//  SignupLandingView.swift
+//  SignInView.swift
 //  Myapp
 //
-//  Created by Tenzin Kabsang on 2/18/22.
+//  Created by Tenzin Kabsang on 2/22/22.
 //
 
+import Foundation
 import SwiftUI
 
-struct SignupLandingView: View {
+struct SignInView : View {
+    
+    @State private var loggingIn = false
+    
     var body: some View {
-        
         NavigationView {
             VStack(spacing: 20) {
                 
                 Button {
-                    
+                    loggingIn.toggle()
                 } label: {
                     
                     Text("Log in")
@@ -34,22 +37,36 @@ struct SignupLandingView: View {
                     Text("Don't have an account?")
                     
                     Button {
-                        
+                        loggingIn.toggle()
                     } label: {
                         Text("Sign up")
                     }
-                    
                 }
                 
             }
-            .navigationTitle("New")
-            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $loggingIn) {
+                SignInViewUI()
+            }
+            .navigationBarHidden(true)
         }
     }
 }
 
-struct SignupLandingView_Previews: PreviewProvider {
+
+struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignupLandingView()
+        SignInView()
+    }
+}
+
+
+struct SignInViewUI: UIViewControllerRepresentable {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<SignInViewUI>) -> UIViewController {
+        //return AM.shared.authViewController
+        return AuthManager.shared.authView
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<SignInViewUI>) {
+        // empty
     }
 }
