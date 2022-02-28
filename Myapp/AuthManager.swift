@@ -3,21 +3,18 @@ import Foundation
 import Firebase
 import FirebaseEmailAuthUI
 import FirebaseGoogleAuthUI
-import FirebaseFacebookAuthUI
 
 
 class AuthManager: NSObject {
     static let shared = AuthManager()
-    
-    var authViewController: UIViewController {
-        return MyAuthViewController(authUI: FUIAuth.defaultAuthUI()!)
-    }
-    
+        
     init(withNavigationBar: Bool = false) {
         
         super.init()
         
-        self.setupProviders()
+        let authUI = FUIAuth.defaultAuthUI()
+        
+        authUI?.providers = getSupportedProviders()
     }
     
     var authView: UIViewController {
@@ -25,7 +22,8 @@ class AuthManager: NSObject {
         return (authUI?.authViewController())! as UIViewController
     }
     
-    private func setupProviders() {
+    
+    private func getSupportedProviders() -> [FUIAuthProvider] {
         let actionCodeSettings = ActionCodeSettings()
         actionCodeSettings.url = URL(string: "https://example.appspot.com")
         actionCodeSettings.handleCodeInApp = true
@@ -42,12 +40,7 @@ class AuthManager: NSObject {
         let googleAuth = FUIGoogleAuth(authUI: FUIAuth.defaultAuthUI()!)
         //let facebookAuth = FUIFacebookAuth(authUI: FUIAuth.defaultAuthUI()!)
         
-        let providers: [FUIAuthProvider] = [
-            emailAuthProvider,
-            googleAuth
-        ]
-        
-        FUIAuth.defaultAuthUI()?.providers = providers
+        return [emailAuthProvider, googleAuth]
     }
     
 }
@@ -82,13 +75,3 @@ extension AuthManager {
     }
 }
 
-class MyAuthViewController: FUIAuthPickerViewController {
-    override func viewDidLoad() {
-            super.viewDidLoad()
-            let scrollView = view.subviews[0]
-            scrollView.backgroundColor = .clear
-            let contentView = scrollView.subviews[0]
-            contentView.backgroundColor = .clear
-            view.backgroundColor = .clear
-        }
-}

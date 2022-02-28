@@ -14,5 +14,6 @@ extension Resolver: ResolverRegistering {
       register { EventRepository() as IEventRepository }.scope(.application)
       register { CategoryRepository() as ICategoryRepository }.scope(.application)
       register { UserRepository() as IUserRepository }.scope(.application)
+      register { ImageService() as IImageService }.scope(.application)
   }
 }

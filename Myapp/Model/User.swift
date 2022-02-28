@@ -3,12 +3,13 @@ import FirebaseFirestoreSwift
 
 struct User: Codable, Hashable, Identifiable {
     @DocumentID var id: String?
-    var username: String
+    var displayName: String
     var email: String
-    var firstName: String
-    var lastName: String
-    var location: Location  // Rande<Double> maybe...
+    var firstName: String?
+    var lastName: String?
     var profileImageUrl: String
+    var location: Location?  // Rande<Double> maybe...
+  
     @ServerTimestamp var createdAt: Date?
     @ServerTimestamp var lastUpdateAt: Date?
 }

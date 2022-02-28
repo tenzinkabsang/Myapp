@@ -7,8 +7,16 @@ struct EventCard: View {
     
     private var bottomSpace: CGFloat = 15.0
     
-    
     @State var showCommentsIcon = true
+    
+    
+    var gradient: LinearGradient {
+        .linearGradient(
+                    Gradient(colors: [.black.opacity(0.6), .black.opacity(0)]),
+                    startPoint: .bottom,
+                    endPoint: .center)
+    }
+    
         
     init(eventCardModel: EventCardModel, cardHeight: CGFloat = 450){
         
@@ -24,6 +32,7 @@ struct EventCard: View {
     var body: some View {
         
         ZStack(alignment: .bottomTrailing) {
+            gradient
             EventImageView(eventUrl: model.eventImageUrl, cornerRadius: 0,  height: self.cardHeight)
             
             HStack(alignment: .bottom, spacing: 5) {

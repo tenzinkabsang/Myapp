@@ -10,61 +10,71 @@ import SDWebImageSwiftUI
 
 struct CardProfileImage: View {
     var imageUrl: String
-    
-    private let imageSize: Double = 40
+    var imageSize: Double = 40
+    var image: Image? = nil
     
     var body: some View {
         
-        WebImage(url: URL(string: imageUrl))
+        if let image = image {
+            LocalImage(image: image)
+        } else {
+            webImage
+        }
+    }
+    
+    @ViewBuilder
+    func LocalImage(image: Image) -> some View {
+            image
             .resizable()
-            .placeholder {
-                Circle()
-                    .foregroundColor(Color.purple.opacity(0.1))
-                    .frame(width: imageSize, height: imageSize)
-            }
-            .onFailure { error in
-                //Image(systemName: "person.circle")
-            }
-            .transition(.fade(duration: 0.5))
+            .scaledToFill()
             .frame(width: imageSize, height: imageSize)
             .clipShape(Circle())
             .overlay{
                 Circle().stroke(.white, lineWidth: 2)
             }
             .shadow(radius: 7)
-        
-        
-        /**
-        AsyncImage(url: URL(string: imageUrl), transaction: Transaction(animation: .spring())) { phase in
-            switch phase {
-            case .empty:
-                Color.purple.opacity(0.1)
-                
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFill()
-                
-            case .failure(_):
-                Image(systemName: "person.circle")
-                                
-            @unknown default:
-                Image(systemName: "person.circle")
-            }
-        }
-        .frame(width: 40, height: 40)
-        .clipShape(Circle())
-        .overlay{
-            Circle().stroke(.white, lineWidth: 2)
-        }
-        .shadow(radius: 7)
-           **/
     }
+    
+       
+    @ViewBuilder var webImage: some View {
+        WebImage(url: URL(string: imageUrl))
+            .resizable()
+            .scaledToFill()
+            .frame(width: imageSize, height: imageSize)
+            .clipShape(Circle())
+            .overlay{
+                Circle().stroke(.white, lineWidth: 2)
+            }
+            .shadow(radius: 7)
+    }
+    
+//    @ViewBuilder var webImage: some View {
+//        WebImage(url: URL(string: imageUrl))
+//            .resizable()
+//            .placeholder {
+//                Circle()
+//                    .foregroundColor(Color.purple.opacity(0.1))
+//                    .frame(width: imageSize, height: imageSize)
+//            }
+//            .onFailure { error in
+//                //Image(systemName: "person.circle")
+//            }
+//            .transition(.fade(duration: 0.5))
+//            .scaledToFill()
+//            .frame(width: imageSize, height: imageSize)
+//            .clipShape(Circle())
+//            .overlay{
+//                Circle().stroke(.white, lineWidth: 2)
+//            }
+//            .shadow(radius: 7)
+//    }
 }
 
 struct CardProfileImage_Previews: PreviewProvider {
     static var previews: some View {
         CardProfileImage(
-            imageUrl: "https://avatars.githubusercontent.com/u/1808150?s=400&u=56f519596ffe7ab040c50ffd1e0a9ad546353bef&v=4")
+            imageUrl: "https://firebasestorage.googleapis.com/v0/b/myapp-c9689.appspot.com/o/profile%2F03B2507D-3C8A-4947-BD23-515EC079C102?alt=media&token=9d846b6e-a82a-41ee-aec8-ca70e4e17a58",
+            imageSize: 120,
+            image: Image("person"))
     }
 }

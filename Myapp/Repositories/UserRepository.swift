@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 
 protocol IUserRepository {
     func fetchUserAsync(userId: String) async throws -> User?
+    func createUser(_ user: User)
 }
 
 class UserRepository: IUserRepository {
@@ -25,6 +26,15 @@ class UserRepository: IUserRepository {
         return userSnapshot.documents.compactMap { document in
             try? document.data(as: User.self)
         }.first
+    }
+    
+    func createUser(_ user: User) {
+        do {
+            let _ = try db.collection(path).document(user.id!).setData(from: user, merge: true)
+        }
+        catch {
+            print(error)
+        }
     }
     
 }

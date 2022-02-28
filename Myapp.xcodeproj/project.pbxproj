@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		960BF1A627C9547C00C6C950 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960BF1A527C9547C00C6C950 /* ImagePicker.swift */; };
 		961ADF6E27AEC84400BB66BB /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961ADF6D27AEC84400BB66BB /* FlatLinkStyle.swift */; };
 		9623370927A5866B0090D57D /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623370827A5866B0090D57D /* NavView.swift */; };
 		9626129B2799A82100B619BF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9626129A2799A82100B619BF /* User.swift */; };
@@ -50,6 +51,7 @@
 		96A43E4C27C6C15100048F35 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A43E4B27C6C15100048F35 /* PrivacyView.swift */; };
 		96A43E4E27C6C16700048F35 /* TermsOfService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A43E4D27C6C16700048F35 /* TermsOfService.swift */; };
 		96A43E5027C6DA8B00048F35 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A43E4F27C6DA8B00048F35 /* UserRepository.swift */; };
+		96A68A8827CAE8C0006FB866 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A68A8727CAE8C0006FB866 /* FirebaseManager.swift */; };
 		96AD3CAA27B59DCF00B41342 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AD3CA927B59DCF00B41342 /* SearchResultViewModel.swift */; };
 		96ADFA7627C43E6200F76DAD /* FirebaseAnonymousAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 96ADFA7527C43E6200F76DAD /* FirebaseAnonymousAuthUI */; };
 		96ADFA7827C43E6200F76DAD /* FirebaseAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 96ADFA7727C43E6200F76DAD /* FirebaseAuthUI */; };
@@ -76,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		960BF1A527C9547C00C6C950 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		961ADF6D27AEC84400BB66BB /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
 		9623370827A5866B0090D57D /* NavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
 		9626129A2799A82100B619BF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		96A43E4B27C6C15100048F35 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		96A43E4D27C6C16700048F35 /* TermsOfService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfService.swift; sourceTree = "<group>"; };
 		96A43E4F27C6DA8B00048F35 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		96A68A8727CAE8C0006FB866 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		96AD3CA927B59DCF00B41342 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		96ADFA8327C4820700F76DAD /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		96BE0A7E27B1AF7300BA1ECC /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 				967B8BE727A099130051E403 /* injection.swift */,
 				96D0686E27A3226B0015AB52 /* Extensions.swift */,
 				96ADFA8327C4820700F76DAD /* AuthManager.swift */,
+				96A68A8727CAE8C0006FB866 /* FirebaseManager.swift */,
 			);
 			path = Myapp;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				96EFFAD927AC4C1C00A2B2E2 /* ExDivider.swift */,
 				96EFFADB27AC5C4000A2B2E2 /* ImageCarousel.swift */,
 				961ADF6D27AEC84400BB66BB /* FlatLinkStyle.swift */,
+				960BF1A527C9547C00C6C950 /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -438,9 +444,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96A68A8827CAE8C0006FB866 /* FirebaseManager.swift in Sources */,
 				9623370927A5866B0090D57D /* NavView.swift in Sources */,
 				96BE0A8227B1BB8B00BA1ECC /* SearchViewModel.swift in Sources */,
 				96D0686F27A3226B0015AB52 /* Extensions.swift in Sources */,
+				960BF1A627C9547C00C6C950 /* ImagePicker.swift in Sources */,
 				96E7A8A927988E4100C0E27E /* ContentView.swift in Sources */,
 				9626129D2799D7B900B619BF /* EventList.swift in Sources */,
 				96A43E4C27C6C15100048F35 /* PrivacyView.swift in Sources */,

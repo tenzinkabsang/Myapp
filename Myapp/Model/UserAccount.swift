@@ -7,11 +7,13 @@
 
 import Foundation
 import FirebaseAuthUI
+import Resolver
 
 struct UserAccount: Codable {
-    var userId : String = ""
-    var email: String = ""
-    var displayName: String = ""
+    var userId : String?
+    var email: String?
+    var displayName: String?
+    var profileImageUrl: String?
     
     private var signedIn: Bool = false
     
@@ -26,11 +28,44 @@ struct UserAccount: Codable {
     }
 }
 
-class UserAccountViewModel : NSObject, ObservableObject {
-    @Published private var user = Keystore.shared.load()
+class UserAccountViewModel : NSObject, ObservableObject, FUIAuthDelegate {
+    
+    @Injected var userRepository: IUserRepository
+    
+    @Published private var user : UserAccount = Keystore.shared.load()
+    
+    //@Published var userId: String?
+//    @Published var displayName: String?
+//    @Published var email: String?
+//    @Published var profileImageUrl: String?
+    
+    var userId: String? {
+        get {
+            user.userId
+        }
+    }
+    
+    var displayName: String? {
+        get {
+            user.displayName
+        }
+    }
+    
+    var email: String? {
+        get {
+            user.email
+        }
+    }
+    
+    var profileImageUrl: String? {
+        get {
+            user.profileImageUrl
+        }
+    }
     
     override init() {
         super.init()
+        
         AuthManager.shared.setAuthDelegate(self)
     }
     
@@ -43,21 +78,7 @@ class UserAccountViewModel : NSObject, ObservableObject {
         }
     }
     
-    var userId: String {
-        user.userId
-    }
-    
-    var displayName: String {
-        user.displayName
-    }
-    
-    var userEmail: String {
-        user.email
-    }
-}
-
-extension UserAccountViewModel : FUIAuthDelegate {
-    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?){
+    func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
         
         if let error = error {
             print("Error::\(error)")
@@ -66,6 +87,8 @@ extension UserAccountViewModel : FUIAuthDelegate {
         
         if let result = authDataResult {
             self.user.hasSignedIn = true
+            self.user.userId = result.user.uid
+                        
             if let name = result.user.displayName {
                 self.user.displayName = name
             }
@@ -74,14 +97,57 @@ extension UserAccountViewModel : FUIAuthDelegate {
                 self.user.email = email
             }
             
-            self.user.userId = result.user.uid
+//            if let photoUrl = result.user.photoURL {
+//                self.user.profileImageUrl = photoUrl.absoluteString
+//            }
             
-            Keystore.shared.save(user)
+            
+            saveUser(self.user)
         }
     }
-}
-
-extension UserAccountViewModel {
+    
+    private func saveUser(_ user: UserAccount) {
+        
+        Keystore.shared.save(user)
+        
+        Task {
+            let currentUser = try await userRepository.fetchUserAsync(userId: user.userId!)
+                        
+            // User does not exist, then we create one in firestore
+            if currentUser == nil {
+                let newUser = User(id: user.userId,
+                                   displayName: user.displayName ?? "",
+                                   email: user.email ?? "",
+                                   profileImageUrl: user.profileImageUrl ?? "",
+                                   location: Location(latitude: "", longitude: ""))
+                
+                userRepository.createUser(newUser)
+                
+                print("User created: \(newUser.email)")
+            }
+        }
+    }
+    
+    func updateUser(profileImgUrl: String) {
+        
+        // Update local user data
+        user.profileImageUrl = profileImgUrl
+        Keystore.shared.save(user)
+        
+        // Update database
+        let newUser = User(id: user.userId,
+                           displayName: user.displayName ?? "",
+                           email: user.email ?? "",
+                           profileImageUrl: profileImgUrl)
+        
+        userRepository.createUser(newUser)
+        
+        print("User updated: \(newUser.email)")
+        
+        //user = Keystore.shared.load()
+    }
+    
+    
     func signOut() {
         AuthManager.shared.signOut { error in
             if let error = error {
@@ -93,3 +159,4 @@ extension UserAccountViewModel {
         }
     }
 }
+

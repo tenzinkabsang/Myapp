@@ -42,12 +42,11 @@ final class UserProfile :ObservableObject {
     
     
     @Published var userx = User(id: "",
-                               username: "",
+                               displayName: "",
                                email: "",
-                               firstName: "",
-                               lastName: "",
-                               location: Location(latitude: "", longitude: ""),
-                               profileImageUrl: "")
+                                profileImageUrl: "",
+                               location: Location(latitude: "", longitude: "")
+                             )
     
     @Published var user: User?
     

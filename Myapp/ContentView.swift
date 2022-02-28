@@ -51,6 +51,7 @@ struct ContentView: View {
                 }
                 .tag(Tab.profile)
         }
+        //.accentColor(Color.purple)
         .onAppear {
             
             // Stop tabview from becoming translucent when used with ScrollView/List
