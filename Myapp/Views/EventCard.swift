@@ -55,7 +55,7 @@ struct EventCard: View {
                         Button {
                             // Show comments
                         } label: {
-                            Image(systemName: "heart")
+                            Image(systemName: "star")
                                 .font(.system(size: 40, weight: .ultraLight))
                                 .foregroundColor(.black)
                             

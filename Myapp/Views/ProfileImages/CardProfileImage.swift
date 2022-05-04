@@ -70,6 +70,7 @@ struct CardProfileImage: View {
 //    }
 }
 
+
 struct CardProfileImage_Previews: PreviewProvider {
     static var previews: some View {
         CardProfileImage(

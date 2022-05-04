@@ -27,7 +27,7 @@
 		966902E927C53CAB00174E38 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902E827C53CAB00174E38 /* SignInView.swift */; };
 		966902EB27C55B5B00174E38 /* AccountLandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902EA27C55B5B00174E38 /* AccountLandingView.swift */; };
 		966902EE27C5816A00174E38 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902ED27C5816A00174E38 /* UserAccount.swift */; };
-		966902F027C5823200174E38 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902EF27C5823200174E38 /* UserDataSource.swift */; };
+		966902F027C5823200174E38 /* Keystore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902EF27C5823200174E38 /* Keystore.swift */; };
 		966902F227C58B5500174E38 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902F127C58B5500174E38 /* SettingsView.swift */; };
 		966902F427C58D4C00174E38 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966902F327C58D4C00174E38 /* SettingRowView.swift */; };
 		966CC102279B95870087E991 /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966CC101279B95870087E991 /* DummyData.swift */; };
@@ -95,7 +95,7 @@
 		966902EA27C55B5B00174E38 /* AccountLandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLandingView.swift; sourceTree = "<group>"; };
 		966902EC27C55EF300174E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		966902ED27C5816A00174E38 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
-		966902EF27C5823200174E38 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
+		966902EF27C5823200174E38 /* Keystore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keystore.swift; sourceTree = "<group>"; };
 		966902F127C58B5500174E38 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		966902F327C58D4C00174E38 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		966CC101279B95870087E991 /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
@@ -337,7 +337,7 @@
 				9626129A2799A82100B619BF /* User.swift */,
 				9626129C2799D7B900B619BF /* EventList.swift */,
 				966902ED27C5816A00174E38 /* UserAccount.swift */,
-				966902EF27C5823200174E38 /* UserDataSource.swift */,
+				966902EF27C5823200174E38 /* Keystore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -491,7 +491,7 @@
 				96A43E4E27C6C16700048F35 /* TermsOfService.swift in Sources */,
 				96A43E4827C6C11D00048F35 /* ProfileView.swift in Sources */,
 				96BE0A8427B1BF1800BA1ECC /* CategoryRepository.swift in Sources */,
-				966902F027C5823200174E38 /* UserDataSource.swift in Sources */,
+				966902F027C5823200174E38 /* Keystore.swift in Sources */,
 				966902EB27C55B5B00174E38 /* AccountLandingView.swift in Sources */,
 				96A43E4A27C6C13900048F35 /* NotificationsView.swift in Sources */,
 				968E6932279CBD6600A0C8A9 /* CardProfileImage.swift in Sources */,

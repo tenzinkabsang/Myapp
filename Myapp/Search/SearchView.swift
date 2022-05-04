@@ -65,6 +65,7 @@ struct SearchView: View {
             .navigationBarHidden(true)
         }
     }
+        
 }
 
 struct SearchView_Previews: PreviewProvider {

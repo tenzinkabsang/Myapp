@@ -82,6 +82,20 @@ extension UIImage {
     }
 }
 
+extension Image {
+    func profileImage(imageSize: Double) -> some View {
+        self
+        .resizable()
+        .scaledToFill()
+        .frame(width: imageSize, height: imageSize)
+        .clipShape(Circle())
+        .overlay{
+            Circle().stroke(.white, lineWidth: 2)
+        }
+        .shadow(radius: 7)
+    }
+}
+
 extension Optional where Wrapped: ExpressibleByStringLiteral {
     func isNilOrEmpty() -> Bool {
         if let value = self as? String, !value.isEmpty {

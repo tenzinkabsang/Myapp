@@ -33,12 +33,7 @@ class UserAccountViewModel : NSObject, ObservableObject, FUIAuthDelegate {
     @Injected var userRepository: IUserRepository
     
     @Published private var user : UserAccount = Keystore.shared.load()
-    
-    //@Published var userId: String?
-//    @Published var displayName: String?
-//    @Published var email: String?
-//    @Published var profileImageUrl: String?
-    
+        
     var userId: String? {
         get {
             user.userId

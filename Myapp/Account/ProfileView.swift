@@ -54,19 +54,14 @@ class ProfileViewModel : ObservableObject {
     @Injected var imageService: IImageService
     
     @Published var selectedImage = UIImage()
-    
-    @Published var uploadInProgress: Bool = false
-    
-    
-    func uploadProfileImage(userAccountVM: UserAccountViewModel, img: UIImage) {
-        uploadInProgress = true
+    @Published var newImageAdded: Bool = false
         
+    func uploadProfileImage(userAccountVM: UserAccountViewModel, img: UIImage) {
+        newImageAdded = true
         imageService.saveImage(image: img, imageName: userAccountVM.userId, userCompletionHandler: { imgUrl in
             print("Updating user in database")
             
             userAccountVM.updateUser(profileImgUrl: imgUrl)
-            
-            self.uploadInProgress = false
         })
     }
 }
@@ -76,11 +71,7 @@ struct ProfileView: View {
     @ObservedObject var profileVM = ProfileViewModel()
     
     @State var showImagePicker = false
-    var imageUrl: String?
-    
-    init() {
-        self.imageUrl = userAccountVM.profileImageUrl
-    }
+    @State var newImageAdded: Bool = false
     
     var body: some View {
         
@@ -110,13 +101,23 @@ struct ProfileView: View {
                     showImagePicker.toggle()
                 } label: {
                     
-                    if !profileVM.uploadInProgress {
-                        
-                        CardProfileImage(imageUrl: imageUrl ?? "",
-                                         imageSize: 120,
-                                         image: imageUrl.isNilOrEmpty() ? Image("person") : nil)
-                    } else {
+                    if profileVM.newImageAdded {
                         CardProfileImage(imageUrl: "", imageSize: 120, image: Image(uiImage: profileVM.selectedImage))
+                    } else {
+                        
+                        if let imageUrl = userAccountVM.profileImageUrl {
+                            CardProfileImage(imageUrl: imageUrl, imageSize: 120)
+                        } else {
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 64))
+                                .padding()
+                                .foregroundColor(.gray)
+                                .clipShape(Circle())
+                                .overlay{
+                                    Circle().stroke(.gray, lineWidth: 1)
+                                }
+                        }
+                      
                     }
                 }
                 
